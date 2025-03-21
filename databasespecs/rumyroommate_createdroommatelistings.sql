@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `rumyroommate` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `rumyroommate`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rumyroommate
 -- ------------------------------------------------------
--- Server version	8.4.4
+-- Server version	8.0.41
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,20 +16,24 @@ USE `rumyroommate`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `inquiryposts`
+-- Table structure for table `createdroommatelistings`
 --
 
-DROP TABLE IF EXISTS `inquiryposts`;
+DROP TABLE IF EXISTS `createdroommatelistings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `inquiryposts` (
-  `id` int NOT NULL,
-  `postid` varchar(45) NOT NULL,
-  `houseaddress` varchar(45) NOT NULL,
-  `housetype` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `postid_UNIQUE` (`postid`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+CREATE TABLE `createdroommatelistings` (
+  `postid` int unsigned NOT NULL,
+  `userid` int unsigned NOT NULL,
+  `preferenceids` json NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `campus` varchar(255) DEFAULT NULL,
+  `roomnumber` varchar(255) DEFAULT NULL,
+  `roomtype` varchar(255) DEFAULT NULL,
+  `numrooms` int unsigned DEFAULT NULL,
+  `numroommates` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`postid`),
+  UNIQUE KEY `postid_UNIQUE` (`postid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -44,4 +46,4 @@ CREATE TABLE `inquiryposts` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-10 23:12:47
+-- Dump completed on 2025-03-21  0:42:23

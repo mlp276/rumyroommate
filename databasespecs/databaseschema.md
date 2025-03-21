@@ -1,55 +1,57 @@
 **User Account**
-- user id
+- * user id
 - net id
-- authentication token?
+- user name
+- real name
+- age
 
 **Users Preferences**
-- user id
+- * user id
 
 preference ids as shown below
 - 00 reserved for null
 
-Categorical
-- 01 actual name
+Primary
+- 01 gender
 - 02 major
-- 03 gender
-- 04 preferred campus
-- 05 preferred room type
-- 06 preferred roommate
-- 07 race preference
-- 08 religion preference
-- 09 smoking preference
-- 10 drinking preference
-- 11 sleeping habits
+
+Categorical
+- 03 race preference
+- 04 religion preference
+- 05 smoking preference
+- 06 drinking preference
+- 07 sleeping habits
 
 Numerical
-- 12 age
-- 13 room budget
-- 14 start sleep time
-- 15 end sleep time
-- 16 study start time
-- 17 study end time
-- 18 shared space start time
-- 19 shared space end time
-- 20 preferred temperature
-- 21 preferred guest frequency
-
-Numerical (1-10)
-- 22 number of roommates
-- 23 number of rooms
-- 24 cleanliness scale
-- 25 noise tolerance scale
+- 08 room budget
+- 09 start sleep time
+- 10 end sleep time
+- 11 study start time
+- 12 study end time
+- 13 shared space start time
+- 14 shared space end time
+- 15 preferred low temperature
+- 16 preferred high temperature
+- 17 preferred guest frequency
+- 18 cleanliness scale
+- 19 noise tolerance scale
 
 **Created Roommate Listings**
+- * post id
 - user id
-- post id
-- array of preferences ids
+- preferences ids
+- address
+- campus
+- room type
+- number of rooms
+- number of roommates available
 
 **Saved Roommates Listings**
+- * save id
 - user id
 - post id
 
 **Matching Notifications**
-- notification id
+- * notification id
 - user id
 - post id
