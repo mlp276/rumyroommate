@@ -8,6 +8,10 @@ const regExpPost = new RegExp('^\/post.*');
 const regExpPatch = new RegExp('^\/patch.*');
 const regExpDelete = new RegExp('^\/delete.*');
 
+const testRegExp = function (expression) {
+    
+}
+
 /* web server listens on the environment port, 8000, or 8080 */
 const port = 8080;
 
