@@ -11,7 +11,7 @@ const initiateDBConnection = function (host, user, password, database) {
     return connection;
 };
 
-const queryError = function(responseMessage, error, code, message) {
+const queryError = function(error, code, message) {
     responseMessage.code = code;
     responseMessage.message = message;
     responseMessage.body = "MySQL server error: CODE = " + error.code
@@ -23,4 +23,4 @@ const queryError = function(responseMessage, error, code, message) {
 module.exports = {
     initiateDBConnection,
     queryError
-}
+};

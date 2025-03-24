@@ -15,5 +15,4 @@ const { host, user, password, database } = require('../databasespecs/sqlDatabase
     UC-03: Search Roommate Listing
     UC-04: Save Roommate Listing
     UC-05: View Match Notification
-
-*/s
+*/
