@@ -1,17 +1,24 @@
-const express = require('express'); // The express module for server routing
-const route = express(); // The router for the server
+const express = require('express'); // The express module for server set-up
+const mainpage = require('../mainpage/mainpageOperations.js'); // Main page operations
 
-const mainpage = require('../mainpage/mainpageOperations.js');
-
-route.get('/accounts', function (request, response) {
-    mainpage.getAccounts(request, response);
-});
-
-route.get('/listings', function (request, response) {
-    mainpage.viewListings(request, response);
-});
-
-/* Listen to requests at port 8080 */
 const port = 8080;
-route.listen(port);
-console.log(`Server started on port ${port}`);
+
+const initializeServer = function () {
+    const rumyroommateserver = express(); // The router for the server
+
+    rumyroommateserver.get('/accounts', function (request, response) {
+        mainpage.getAccounts(request, response);
+    });
+
+    rumyroommateserver.get('/listings', function (request, response) {
+        mainpage.viewListings(request, response);
+    });
+
+    /* Listen to requests at the specified port */
+    rumyroommateserver.listen(port);
+    console.log(`Server started on port ${port}`);
+
+    return rumyroommateserver;
+};
+
+initializeServer();

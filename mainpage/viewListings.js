@@ -23,7 +23,7 @@ const viewListings = function (request, response) {
                 }
                 else {
                     const resultResponse = JSON.stringify(JSON.parse(JSON.stringify(result)));
-                    response.set('content-type', 'application/json')
+                    response.set('content-type', 'application/json');
                     response.status(200).send(resultResponse);
                     dbConnection.end();
                 }
