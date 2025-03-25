@@ -1,18 +1,18 @@
 const { initiateDBConnection } = require('../databaseserver/connect_db.js');
 const { host, user, password, database } = require('../databasespecs/sqlDatabaseSecrets.js');
 
-const viewListings = function (request, response) {
+const getAccounts = function (request, response) {
     let requestMessage = {};
     let sqlStatement = '';
 
     const dbConnection = initiateDBConnection(host, user, password, database);
-    let listingsTable = 'createdroommatelistings';
+    let accountsTable = 'useraccounts';
 
     try {
         dbConnection.connect(function (error) {
             if (error) throw error;
 
-            sqlStatement = `SELECT * FROM ${listingsTable}`;
+            sqlStatement = `SELECT * FROM ${accountsTable}`;
             dbConnection.query(sqlStatement, function (error, result) {
                 if (error) {
                     requestMessage.message = 'Service Unavailable';
@@ -37,5 +37,5 @@ const viewListings = function (request, response) {
 };
 
 module.exports = {
-    viewListings
+    getAccounts
 };
