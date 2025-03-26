@@ -10,30 +10,48 @@
     <title>Create Post</title>
 </head>
 <body>
-    <div class ="wrapper">
-        <h1>Make Your Roomate Inquiry!</h1>
-        <form>
-            <div>
-                <input required type ="text" name="postTitle" id="postTitle-input" placeholder="postTitle">
-            </div>
-            <div>
-                <input required type="text" name="address" id="address-input" placeholder="Address of Property">
-            </div>
-            <div>
-                <input type="text" name="campus" id="campus-input" placeholder="Campus">
-            </div>
-            <div>
-                <input type="number" name="numberOfRooms" id="roomnum-input" placeholder="Number of rooms">
-            </div>
-            <div>
-                <input type="number" name="numberOfRoomates" id="roomates-input" placeholder="Number of Roommates">
-            </div>
-            <div>
-                <input type="" name="" id="" placeholder="">
-            </div>
-                <input type="submit" value="Post">
-            </div>
-        </form>
-    </main>
+    <h1>Post Your Inquiry!</h1>
+  <div class="container">
+    <form class="form">
+        <div>
+            <input required type ="text" name="postTitle" id="postTitle-input" placeholder="postTitle">
+        </div>
+        <div>
+            <input required type="text" name="address" id="address-input" placeholder="Address of Property">
+        </div>
+        <div>
+            <input type="text" name="campus" id="campus-input" placeholder="Campus">
+        </div>
+        <div>
+            <input type="number" name="numberOfRooms" id="roomnum-input" placeholder="Number of rooms">
+        </div>
+        <div>
+            <input type="number" name="numberOfRoomates" id="roomates-input" placeholder="Number of Roommates">
+        </div>
+        <div>
+            <input type="" name="" id="" placeholder="">
+        </div>
+            <input type="submit" value="Post">
+        </div>
+    </form>
+    <div class="image-container">
+      <img id="user-image" src="" alt="upload image" />
+    </div>
+  </div>
+
+  <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" />
+  
+  <script>
+    function previewImage() {
+      const file = document.getElementById('imageInput').files[0];
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        document.getElementById('user-image').src = reader.result;
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
 </body>
 </html>
