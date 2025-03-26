@@ -39,12 +39,14 @@ Numerical
 **Created Roommate Listings**
 - * post id
 - user id
-- preferences ids
 - address
 - campus
-- room type
+- house type
 - number of rooms
-- number of roommates available
+- number of bathrooms
+- number of roommates
+- preferences ids
+- description
 
 **Saved Roommates Listings**
 - * save id
