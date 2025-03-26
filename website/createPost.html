@@ -12,6 +12,9 @@
 <body>
     <h1>Post Your Inquiry!</h1>
   <div class="container">
+    <div class="image-container">
+        <img id="user-image" src="" alt="upload image" />
+    </div>
     <form>
         <div>
             <input required type ="text" name="postTitle" id="postTitle-input" placeholder="postTitle">
@@ -32,26 +35,9 @@
             <input type="" name="" id="" placeholder="">
         </div>
             <input type="submit" value="Post">
-        </div>
     </form>
-    <div class="image-container">
-      <img id="user-image" src="" alt="upload image" />
-    </div>
   </div>
 
   <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" />
-  
-  <script>
-    function previewImage() {
-      const file = document.getElementById('imageInput').files[0];
-      const reader = new FileReader();
-      reader.onloadend = function() {
-        document.getElementById('user-image').src = reader.result;
-      };
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    }
-  </script>
 </body>
 </html>
