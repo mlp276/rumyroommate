@@ -3,7 +3,7 @@
   "userid": "integer",
   "postTitle-input": "string",
   "address-input": "string",
-  "campus-input" ["offCampus","bush","college","c/d","livi"],
+  "campus-input" :["offCampus","bush","college","c/d","livi"],
   "roomnum-input": "integer",
   "roommates-input": "integer",
   "description-input": "integer";
