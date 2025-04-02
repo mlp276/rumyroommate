@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RU My Roommate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Slideshow -->
+    <div class="slideshow-container">
+        <div class="slide" style="background-image: url('images/slides/rutgers-1.jpg')"></div>
+        <div class="slide" style="background-image: url('images/slides/rutgers-2.jpg')"></div>
+        <div class="slide" style="background-image: url('images/slides/rutgers-3.jpg')"></div>
+        <div class="slide" style="background-image: url('images/slides/rutgers-4.jpg')"></div>
+        <div class="slide" style="background-image: url('images/slides/rutgers-5.jpg')"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div class="navbar-disclaimer">
+                    RU Roommate Finder
+                </div>
+                <a class="navbar-brand mx-auto" href="/">
+                    <img src="images/ru-my-roommate-logo.png" alt="RU My Roommate">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item profile-link-container">
+                            <a class="nav-link" href="/profile">
+                                <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                            </a>
+                            <div class="profile-dropdown">
+                                <div class="profile-dropdown-header">
+                                    <img src="images/default-profile.png" alt="Profile Picture">
+                                    <div>
+                                        <h6 id="dropdownName">Register Now!</h6>
+                                        <p id="dropdownNetId">Create your account</p>
+                                    </div>
+                                </div>
+                                <ul class="profile-dropdown-menu">
+                                    <li>
+                                        <i class="fas fa-user"></i>
+                                        <a href="/profile">View Profile</a>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-envelope"></i>
+                                        <a href="/messages">Messages</a>
+                                        <span class="badge">3</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-bell"></i>
+                                        <a href="/notifications">Notifications</a>
+                                        <span class="badge">5</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-cog"></i>
+                                        <a href="/settings">Settings</a>
+                                    </li>
+                                </ul>
+                                <div class="profile-dropdown-footer">
+                                    <a href="/register">Sign Up</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 text-center">
+                    <div class="content-box">
+                        <div class="card-body">
+                            <h1 class="text-center mb-4" style="color: var(--rutgers-red); font-weight: 700; font-size: 2.1rem; letter-spacing: 1.5px; text-transform: uppercase; background: linear-gradient(45deg, var(--rutgers-red), #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); white-space: nowrap; padding: 0 1.5rem; line-height: 1.2;">Roommates • Listings • Matches • Home</h1>
+                            <p class="text-center mb-4" style="color: #495057; font-size: 1.2rem; font-weight: 500; letter-spacing: 0.4px; max-width: 600px; margin: 0 auto; line-height: 1.5; text-shadow: 0 1px 2px rgba(0,0,0,0.05); padding-top: 0.5rem;">Find Your Perfect Roommate Now!</p>
+                        <div class="mt-4">
+                            <a href="/register" class="btn btn-primary me-2">Register</a>
+                            <a href="/login" class="btn btn-outline-primary">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Housing Options Section -->
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-4 offset-md-4 text-center">
+                    <div class="housing-options-box">
+                        <h2 class="text-center mb-0" style="color: var(--rutgers-red); font-weight: 600; font-size: 1.8rem; letter-spacing: 0.5px;">Your Housing Options...</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campus Information Section -->
+        <div class="container mt-1">
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-2-4">
+                    <a href="#busch-description" class="text-decoration-none">
+                        <div class="campus-box">
+                            <h3>Busch</h3>
+                            <p>Science & Engineering Hub</p>
+                            <ul>
+                                <li>Engineering Buildings</li>
+                                <li>Science Complex</li>
+                                <li>Research Facilities</li>
+                                <li>Busch Student Center</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-lg-2-4">
+                    <a href="#college-ave-description" class="text-decoration-none">
+                        <div class="campus-box">
+                            <h3>College Ave</h3>
+                            <p class="text-center">Historic Campus Center</p>
+                            <ul>
+                                <li>Heart of New Brunswick</li>
+                                <li>Historic Architecture</li>
+                                <li>Student Activities Hub</li>
+                                <li>Easton Ave Entertainment</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-lg-2-4">
+                    <a href="#cook-douglass-description" class="text-decoration-none">
+                        <div class="campus-box">
+                            <h3>Cook/Douglass</h3>
+                            <p class="text-center">Arts & Agriculture</p>
+                            <ul>
+                                <li>Scenic Gardens</li>
+                                <li>Arts District</li>
+                                <li>Cultural Venues</li>
+                                <li>Quiet Atmosphere</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-lg-2-4">
+                    <a href="#livingston-description" class="text-decoration-none">
+                        <div class="campus-box">
+                            <h3>Livingston</h3>
+                            <p class="text-center">Modern Living</p>
+                            <ul>
+                                <li>Newest Facilities</li>
+                                <li>LSC Shopping Center</li>
+                                <li>Modern Residence Halls</li>
+                                <li>Student Recreation</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-lg-2-4">
+                    <a href="#off-campus-description" class="text-decoration-none">
+                        <div class="campus-box">
+                            <h3>Off-Campus</h3>
+                            <p class="text-center">Flexible Living Options</p>
+                            <ul>
+                                <li>Private Apartments</li>
+                                <li>Selective Pricing</li>
+                                <li>Family-Friendly</li>
+                                <li>Custom Arrangements</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Busch Campus Information Section -->
+        <div class="container mt-5">
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <a href="#busch-description" class="text-decoration-none">
+                        <div class="campus-info-title">
+                            <div>
+                                <h2><a href="https://ruoncampus.rutgers.edu/living-on-campus/busch-campus" target="_blank" class="text-decoration-none">Busch</a></h2>
+                                <div class="residence-halls">
+                                    <div class="hall-type">
+                                        <h4>Apartments</h4>
+                                        <ul>
+                                            <li>Buell Apartments</li>
+                                            <li>Johnson Apartments</li>
+                                            <li>Marvin Apartments</li>
+                                            <li>Nichols Apartment</li>
+                                            <li>Richardson Apartments</li>
+                                            <li>Silvers Apartment</li>
+                                        </ul>
+                                    </div>
+                                    <div class="hall-type">
+                                        <h4>Suites</h4>
+                                        <ul>
+                                            <li>Crosby Suites</li>
+                                            <li>Judson Suites</li>
+                                            <li>McCormick Suites</li>
+                                            <li>Morrow Suites</li>
+                                            <li>Thomas Suites</li>
+                                            <li>Winkler Suites</li>
+                                        </ul>
+                                    </div>
+                                    <div class="hall-type">
+                                        <h4>Traditional Hall</h4>
+                                        <ul>
+                                            <li>Allen Hall</li>
+                                            <li>B.E.S.T Hall</li>
+                                            <li>Barr Hall</li>
+                                            <li>Mattia Hall</li>
+                                            <li>Metzger Hall</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-8" id="busch-description">
+                    <div class="campus-info-content">
+                        <h3>Roommates Love It Here Because...</h3>
+                        <p>If You And Your Roommates Are Looking For A Quieter, More Spacious Place To Live While Still Being Close To Everything You Need, Busch Campus Is A Solid Choice. It's A Great Fit For Students In STEM Fields, Athletes, Or Anyone Who Enjoys A More Relaxed Vibe But Still Wants Easy Access To Modern Amenities And Lots Of Green Space.</p>
+                        
+                        <p>Living On Busch Means You'll Be Surrounded By The Engineering, Science, And Medical Buildings, Making It Super Convenient If You're In One Of Those Majors. Plus, Busch Has Some Of The Best Facilities On Campus. The Werblin Recreation Center Is Perfect If You And Your Roommates Are Into Staying Active With Everything From A Huge Gym To An Olympic-Sized Pool.</p>
+                        
+                        <p>The Dorms And Apartment-Style Housing Here Are Spacious And Modern, With Options Like B.E.S.T. Hall For Engineering Students Or Silvers And Nichols Halls For Those Who Want A Little More Independence While Still Staying Close To Campus.</p>
+                        
+                        <p>If You're Looking For A Bit More Space, The nearby areas in Piscataway Offer Affordable Off-Campus Housing With Easy Access To Busch Via Rutgers' Bus System. Whether You're All About The Quiet Campus Life, Need Easy Access To Labs, Or Just Love Having Great Fitness Options Nearby, Busch Offers A Balanced, Comfortable Place To Live.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- College Ave Campus Information Section -->
+        <div class="container mt-5">
+            <div class="row mt-5">
+                <div class="col-md-8" id="college-ave-description">
+                    <div class="campus-info-content">
+                        <h3>Roommates Love It Here Because...</h3>
+                        <p>If You And Your Roommates Want To Be Right In The Middle Of Everything, College Ave Is The Place To Live. This Campus Is Perfect For Students Who Love Being Social, Going Out, And Having Everything Just A Short Walk Away. Whether It's Grabbing Late-Night Food, Hitting Up A Campus Event, Or Just Hanging Out At A Nearby Coffee Shop, There's Always Something Happening Here.</p>
+                        
+                        <p>For Roommates Who Like Staying Busy, College Ave Has Everything Within Reach. The Rutgers Student Center Is Packed With Club Meetings And Events, The Alexander Library Is Great For Study Sessions, And When You Need A Change Of Scenery, There Are Tons Of Restaurants And Cafés Nearby. Plus, If You Ever Feel Like Taking A Trip, The Train Station Is Right Down The Street, Making It Super Easy To Get To NYC Or Anywhere Else In Jersey.</p>
+                        
+                        <p>Housing Options Here Fit Different Lifestyles. Traditional Dorms Like Frelinghuysen And Mettler Are Great If You Want The Full College Experience, While The Yard Offers Modern Apartment-Style Living Right Above Restaurants And Shops. If You And Your Roommates Want Even More Independence, Off-Campus Apartments Along Easton Avenue Keep You Close To The Action While Giving You Extra Space.</p>
+                        
+                        <p>If Your Group Loves A Fast-Paced, Fun, And Convenient Lifestyle, College Ave Is The Perfect Spot To Call Home.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a href="#college-ave-description" class="text-decoration-none">
+                        <div class="campus-info-title">
+                            <div>
+                                <h2><a href="https://ruoncampus.rutgers.edu/living-on-campus/college-ave" target="_blank" class="text-decoration-none">College Ave</a></h2>
+                                <div class="residence-halls">
+                                    <div class="hall-type">
+                                        <h4>Apartments</h4>
+                                        <ul>
+                                            <li>Sojourner Truth Apartments</li>
+                                            <li>University Center at Easton Avenue</li>
+                                        </ul>
+                                    </div>
+                                    <div class="hall-type">
+                                        <h4>Suites</h4>
+                                        <ul>
+                                            <li>Brett Hall</li>
+                                            <li>Campbell Hall</li>
+                                            <li>Clothier Hall</li>
+                                            <li>Demarest Hall</li>
+                                            <li>Hardenbergh Hall</li>
+                                            <li>Hegeman Hall</li>
+                                            <li>Honors College</li>
+                                            <li>Leupp Hall</li>
+                                            <li>Pell Hall</li>
+                                            <li>Stonier Hall</li>
+                                            <li>Tinsley Hall</li>
+                                            <li>Wessels Hall</li>
+                                        </ul>
+                                    </div>
+                                    <div class="hall-type">
+                                        <h4>Traditional Hall</h4>
+                                        <ul>
+                                            <li>Frelinghuysen Hall</li>
+                                            <li>Mettler Hall</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cook/Douglass Campus Information Section -->
+        <div class="container mt-5">
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <a href="#cook-douglass-description" class="text-decoration-none">
+                        <div class="campus-info-title">
+                            <div>
+                                <h2><a href="https://ruoncampus.rutgers.edu/living-on-campus/cookdouglass" target="_blank" class="text-decoration-none">Cook/Douglass</a></h2>
+                                <div class="residence-halls">
+                                    <div class="hall-type">
+                                        <h4>Apartments</h4>
+                                        <ul>
+                                            <li>Henderson Apartments</li>
+                                            <li>Newell Apartments</li>
+                                            <li>Starkey Apartments</li>
+                                        </ul>
+                                    </div>
+                                    <div class="hall-type">
+                                        <h4>Traditional Hall</h4>
+                                        <ul>
+                                            <li>Helyar House</li>
+                                            <li>Jameson Hall</li>
+                                            <li>Katzenbach Hall</li>
+                                            <li>Lippincott Hall</li>
+                                            <li>New Gibbons</li>
+                                            <li>Nicholas Hall</li>
+                                            <li>Perry Hall</li>
+                                            <li>Voorhees Hall</li>
+                                            <li>Woodbury Bunting-Cobb Hall</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-8" id="cook-douglass-description">
+                    <div class="campus-info-content">
+                        <h3>Roommates Love It Here Because...</h3>
+                        <p>Cook And Douglass Campuses Are Perfect For Roommates Who Want A More Peaceful, Green Environment While Still Being Close To The Heart Of Rutgers. If You And Your Roommates Appreciate Nature, This Is The Place To Be—There Are Beautiful Outdoor Spaces, Scenic Walking Paths, And A More Relaxed Vibe That Makes It Feel Like A Retreat From The Hustle And Bustle Of Campus Life.</p>
+                        
+                        <p>These Campuses Are Especially Great For Students Studying Agriculture, Environmental Science, Or The Arts, But Anyone Who Loves A Quieter, More Spacious Setting Will Enjoy Living Here. You'll Find Cozy Spots To Study Or Just Hang Out With Friends, Like The Cook Student Center And Douglass Campus Center, Both Of Which Are Perfect For Grabbing Food, Attending Events, Or Just Relaxing Between Classes.</p>
+                        
+                        <p>The Housing Options Here Offer A Nice Mix Of Traditional Dorms And Apartment-Style Living, So Whether You're Looking For The Classic Dorm Experience Or A Bit More Independence, There's A Spot For You And Your Roommates. You'll Also Love The Farm Market, Where You Can Pick Up Fresh, Local Produce And Other Goodies.</p>
+                        
+                        <p>Although Cook And Douglass Offer A More Peaceful Atmosphere, Getting To The Busier Parts Of Campus Like College Avenue Or Busch Is Easy With The Rutgers Bus System. If You And Your Roommates Want A Calm, Green Place To Live But Still Want To Be Close To Everything Rutgers Has To Offer, Cook And Douglass Campuses Give You The Best Of Both Worlds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Livingston Campus Information Section -->
+        <div class="container mt-5">
+            <div class="row mt-5">
+                <div class="col-md-8" id="livingston-description">
+                    <div class="campus-info-content">
+                        <h3>Roommates Love It Here Because...</h3>
+                        <p>Livingston Campus Is Ideal For Roommates Who Want A Bit More Space And A Quieter Vibe While Still Being Close To Everything You Need. It's A Perfect Balance Of Convenience And Comfort—Whether You're Looking For A Top-Notch Gym, Great Food Options, Or Just A Calm Place To Study And Relax, Livingston Has It All. The Campus Has A More Suburban Feel, Which Is Great If You And Your Roommates Want To Enjoy Some Peace And Quiet While Still Being Close To The Action.</p>
+                        
+                        <p>Living Here Means Having Access To Amazing Amenities Like The Livingston Recreation Center, Which Has A Fantastic Gym And Fitness Classes, As Well As Some Of The Best Dining Halls On Campus. If Any Of You Are Studying Business, The Rutgers Business School Is Right Here, Too, Making It Super Convenient.</p>
+                        
+                        <p>The Housing Options On Livingston Are Varied, So Whether You Want A Traditional Dorm Experience Or More Independent Living, You'll Find Something That Works For Your Group. If You're Thinking About Off-Campus Living, There Are Plenty Of Affordable Places Nearby In Places Like Piscataway.</p>
+                        
+                        <p>While Livingston Offers A More Relaxed Atmosphere, You're Still Just A Short Bus Ride Away From The More Bustling Parts Of Campus Like College Avenue Or Busch. It's The Perfect Spot For Roommates Who Want A Little Peace And Quiet Without Feeling Far From Everything.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a href="#livingston-description" class="text-decoration-none">
+                        <div class="campus-info-title">
+                            <div>
+                                <h2><a href="https://ruoncampus.rutgers.edu/living-on-campus/livingston" target="_blank" class="text-decoration-none">Livingston</a></h2>
+                                <div class="residence-halls">
+                                    <div class="hall-type">
+                                        <h4>Apartments</h4>
+                                        <ul>
+                                            <li>Livingston Apartments</li>
+                                            <li>Lynton Towers North</li>
+                                            <li>Lynton Towers South</li>
+                                        </ul>
+                                    </div>
+                                    <div class="hall-type">
+                                        <h4>Traditional Hall</h4>
+                                        <ul>
+                                            <li>Quad I</li>
+                                            <li>Quad II</li>
+                                            <li>Quad III</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Off-Campus Information Section -->
+        <div class="container mt-5">
+            <div class="row mt-5">
+                <div class="col-md-12" id="off-campus-description">
+                    <div class="campus-info-content">
+                        <h2 class="campus-title">Off-Campus</h2>
+                        <h3>Roommates Love It Here Because...</h3>
+                        <p>Living Off-Campus Around Rutgers University–New Brunswick Gives You And Your Roommates A Lot Of Freedom To Choose The Kind Of Environment You Want. Whether You're Looking For Something Close To The Hustle And Bustle Of City Life Or A Quieter, More Relaxed Place To Call Home, There Are Plenty Of Options.</p>
+                        
+                        <p>If You Love Being In The Center Of Everything, Downtown New Brunswick Is Perfect. You'll Be Close To All The Restaurants, Coffee Shops, Bars, And Things To Do. It's Lively And Full Of Energy, With Easy Access To College Avenue And The Other Campuses. Plus, You Can Walk To Pretty Much Everything, Which Is Super Convenient.</p>
+                        
+                        <p>For Roommates Who Prefer A Quieter Vibe, Highland Park And Edison Offer More Peaceful, Residential Areas. They're Just A Short Drive Or Bus Ride Away From Campus, So You're Never Far From School, But You Get A Calmer, More Suburban Feel. These Areas Are Often More Affordable, Too, So You And Your Roommates Can Get More Space For A Better Price.</p>
+                        
+                        <p>Piscataway Is Another Popular Spot, Offering Bigger Living Spaces At A Lower Cost. It's Perfect If You Want A Little More Room To Spread Out, And The Rutgers Bus System Makes It Easy To Get To Campus. It's A Quiet Neighborhood That Still Gives You Access To Everything You Need.</p>
+                        
+                        <p>Off-Campus Living Around Rutgers Really Lets You And Your Roommates Pick The Kind Of Atmosphere That Suits You Best—Whether You Like The Energy Of Downtown Or The Peace Of The Suburbs. There's Something For Everyone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5 py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">© 2024 RU My Roommate. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Questions or Problems? <a href="https://newbrunswick.rutgers.edu/" target="_blank" class="text-decoration-none">Contact Us</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Profile dropdown functionality
+        const profileContainer = document.querySelector('.profile-link-container');
+        const profileDropdown = document.querySelector('.profile-dropdown');
+        const dropdownName = document.getElementById('dropdownName');
+        const dropdownNetId = document.getElementById('dropdownNetId');
+        const profileLink = document.querySelector('.profile-link-container a');
+
+        // Update dropdown content based on login status
+        const userData = sessionStorage.getItem('userData');
+        if (userData) {
+            const user = JSON.parse(userData);
+            dropdownName.textContent = user.username;
+            dropdownNetId.textContent = user.netId;
+        }
+
+        // Update profile picture if exists
+        const savedProfilePic = localStorage.getItem('userProfilePic');
+        if (savedProfilePic) {
+            const profilePics = document.querySelectorAll('img[alt="Profile Picture"]');
+            profilePics.forEach(pic => {
+                pic.src = savedProfilePic;
+            });
+        }
+
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        let lastScrollTop = 0;
+        let scrollTimeout;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Handle scroll direction
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollingUp = scrollTop < lastScrollTop;
+            
+            // Update container class based on scroll direction
+            slideshowContainer.classList.remove('scrolling-up', 'scrolling-down');
+            slideshowContainer.classList.add(scrollingUp ? 'scrolling-up' : 'scrolling-down');
+            
+            // Clear previous timeout
+            clearTimeout(scrollTimeout);
+            
+            // Set new timeout to remove scroll classes after animation
+            scrollTimeout = setTimeout(() => {
+                slideshowContainer.classList.remove('scrolling-up', 'scrolling-down');
+            }, 300);
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Initialize slideshow
+        showSlide(0);
+        setInterval(nextSlide, 5000);
+
+        // Scroll reveal functionality
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        // Observe all campus info content sections
+        document.querySelectorAll('.campus-info-content').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Enhanced smooth scrolling behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.classList.add('smooth-scroll');
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Remove the class after scrolling is complete
+                    setTimeout(() => {
+                        targetElement.classList.remove('smooth-scroll');
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
