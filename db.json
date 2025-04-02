@@ -1,0 +1,16 @@
+{
+"listings": [{
+  "userid": "integer",
+  "title": "string",
+  "numRooms": "integer",
+  "numBath": "integer",
+  "numRoomates": "integer",
+  "preferences":[{
+    "major": ,
+    "age": ,
+    ""
+  }], 
+  "description": "integer",
+  
+}]
+}
