@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: rumyroommate
 -- ------------------------------------------------------
--- Server version	8.0.41
+-- Server version	8.4.4
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,15 +23,16 @@ DROP TABLE IF EXISTS `useraccounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `useraccounts` (
-  `userid` int unsigned NOT NULL,
-  `netid` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `realname` varchar(255) NOT NULL,
-  `age` int unsigned NOT NULL,
+  `userid` int unsigned NOT NULL AUTO_INCREMENT,
+  `netid` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `realname` varchar(255) DEFAULT NULL,
+  `age` int unsigned DEFAULT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `userid_UNIQUE` (`userid`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `netid_UNIQUE` (`netid`),
+  CONSTRAINT `chk_age` CHECK ((`age` >= 18))
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci KEY_BLOCK_SIZE=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -43,4 +44,4 @@ CREATE TABLE `useraccounts` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-21  0:42:23
+-- Dump completed on 2025-04-08 20:44:23

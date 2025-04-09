@@ -3,7 +3,6 @@
 **UC-02: User Profile Management**
 
 **UC-03: Search Roommate Listing**
-Data Collections Involved: 
 
 **UC-04: Save Roommate Listing**
 

@@ -2,9 +2,9 @@
 const { getAccounts } = require('./getAccounts.js');
 
 /* View Listings Controller */
-const { viewListings } = require('./viewListings.js');
+const { getListings } = require('./getListings.js');
 
 module.exports = {
     getAccounts,
-    viewListings
+    getListings
 };

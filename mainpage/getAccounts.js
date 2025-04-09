@@ -22,9 +22,9 @@ const getAccounts = function (request, response) {
                     response.status(503).send(requestMessage);
                 }
                 else {
-                    const resultResponse = JSON.stringify(JSON.parse(JSON.stringify(result)));
+                    const resultJSON = JSON.stringify(JSON.parse(JSON.stringify(result)));
                     response.set('content-type', 'application/json')
-                    response.status(200).send(resultResponse);
+                    response.status(200).send(resultJSON);
                     dbConnection.end();
                 }
             });
