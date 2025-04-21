@@ -11,8 +11,9 @@ const initiateDBConnection = function (host, user, password, database) {
     return connection;
 };
 
-const queryError = function(error, code, message) {
-    responseMessage.code = code;
+const queryError = function(error, message) {
+    let responseMessage = {};
+    console.log(error);
     responseMessage.message = message;
     responseMessage.body = "MySQL server error: CODE = " + error.code
                          + " SQL of the failed query: "  + error.sql

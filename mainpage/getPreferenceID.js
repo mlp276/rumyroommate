@@ -22,11 +22,8 @@ const preferenceIDs = [
 ];
 
 const validatePreferenceID = function (preferenceid) {
-    if (preferenceid < 0)
-        throw Error();
-    
-    if (preferenceid >= preferenceIDs.length)
-        throw Error();
+    if (preferenceid < 0) throw Error();
+    if (preferenceid >= preferenceIDs.length) throw Error();
 }
 
 const getPreferenceColumn = function (preferenceid) {
