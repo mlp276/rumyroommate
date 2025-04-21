@@ -1,0 +1,15 @@
+{
+"listings": [{
+  "userid": "integer",
+  "postTitle-input": "string",
+  "address-input": "string",
+  "campus-input" :["offCampus","bush","college","c/d","livi"],
+  "roomnum-input": "integer",
+  "roommates-input": "integer",
+  "description-input": "integer",
+  "preferences":[{
+    "major": ["ECE","SAS","SEBS","RBS","SCI"]
+    "year": ["first-yr","second-yr","third-yr","fourth-yr","graduate"],
+  }]
+}]
+}
