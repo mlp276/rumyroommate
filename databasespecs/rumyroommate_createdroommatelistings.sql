@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: rumyroommate
 -- ------------------------------------------------------
--- Server version	8.0.41
+-- Server version	8.4.4
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `createdroommatelistings`;
 CREATE TABLE `createdroommatelistings` (
   `postid` int unsigned NOT NULL,
   `userid` int unsigned NOT NULL,
-  `preferenceids` json NOT NULL,
+  `preferenceids` int NOT NULL,
+  `createtime` date NOT NULL,
   `address` varchar(255) NOT NULL,
   `campus` varchar(255) DEFAULT NULL,
   `roomnumber` varchar(255) DEFAULT NULL,
@@ -33,7 +34,9 @@ CREATE TABLE `createdroommatelistings` (
   `numrooms` int unsigned DEFAULT NULL,
   `numroommates` int unsigned DEFAULT NULL,
   PRIMARY KEY (`postid`),
-  UNIQUE KEY `postid_UNIQUE` (`postid`)
+  UNIQUE KEY `postid_UNIQUE` (`postid`),
+  UNIQUE KEY `userid_UNIQUE` (`userid`),
+  CONSTRAINT `fk_userid_posts` FOREIGN KEY (`userid`) REFERENCES `useraccounts` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -46,4 +49,4 @@ CREATE TABLE `createdroommatelistings` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-21  0:42:23
+-- Dump completed on 2025-04-08 20:44:23
