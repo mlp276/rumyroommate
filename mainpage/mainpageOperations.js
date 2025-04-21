@@ -1,19 +1,23 @@
-const http = require('http');
-const { initiateDBConnection, queryError } = require('../databaseserver/connect_db.js');
-const { host, user, password, database } = require('../databasespecs/sqlDatabaseSecrets.js');
+/* Main Page Controllers */
+const { getListings } = require('./getListings.js');
+const { getPreferences } = require('./getPreferences.js');
+const { searchListings } = require('./searchListings.js');
 
-/*
-    Main Page Operations:
-    OP-04: Get Preference Value
-    OP-06: Get Listing
-    OP-09: Get Saved Listing
-    OP-10: Add Saved Listing
-    OP-11: Remove Saved Listing
-    OP-12: Get Notification
+/* UC-03 */
+/* Query 1: Gets the input `userid`'s preference value, `user_preference_value` */
+/* Query 2: Gets listings with the input `preferenceid` set from `preferenceids`
+    This will be done by 
+        1) Get the `userid` and `preferenceids` from all of the listings from the created listings
+        2) Check if `preferenceid` is within each listing's `preferenceids`
+        3) Count the listings that has the comparison successful, and return the array
+    */
+/* Query 3: From the array of listings from Query 2, use each of their `userid` to get from
+    their preferences with the input `preferenceid` to get a list of `listing_preference_value`s */
+/* Count the listings of `listing_preference_value` with the same as `user_preference_value` */
+/* Return JSON of listings that hold these comparisons. */
 
-    Main Page Use Cases:
-    UC-03: Search Roommate Listing
-    UC-04: Save Roommate Listing
-    UC-05: View Match Notification
-
-*/s
+module.exports = {
+    getListings,
+    getPreferences,
+    searchListings
+};
