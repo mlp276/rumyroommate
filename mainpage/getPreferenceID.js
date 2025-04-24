@@ -22,9 +22,9 @@ const preferenceIDs = [
 ];
 
 const validatePreferenceID = function (preferenceid) {
-    if (preferenceid < 0) throw Error();
-    if (preferenceid >= preferenceIDs.length) throw Error();
-}
+    if (preferenceid < 0) throw Error('PreferenceID Out of Range');
+    if (preferenceid >= preferenceIDs.length) throw Error('PreferenceID Out of Range');
+};
 
 const getPreferenceColumn = function (preferenceid) {
     validatePreferenceID(preferenceid);

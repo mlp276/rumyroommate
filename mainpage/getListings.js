@@ -3,23 +3,24 @@ const { host, user, password, database } = require('../databasespecs/sqlDatabase
 const { useraccounts, userpreferences, createdroommatelistings, savedroommatelistings, matchingnotifications } = require('../databasespecs/sqlDatabaseSpecs.js');
 
 const getListings = function (request, response) {
-    let responseMessage = {}, sqlStatement = '';
+    let sqlStatement = '';
     const dbConnection = initiateDBConnection(host, user, password, database);
 
     try {
         sqlStatement = `SELECT * FROM ${createdroommatelistings}`;
+
         dbConnection.connect(function (error) {
             if (error) throw error;
 
             dbConnection.query(sqlStatement, function (error, result) {
-                if (error) { // Unsuccessfuly Query
+                if (error) { // Unsuccessfuly Queryr
                     responseMessage = queryError(error, 'Service Unavailable');
                     response.status(503).send(responseMessage);
                 }
                 else { // Successful Query
-                    const resultResponse = JSON.stringify(JSON.parse(JSON.stringify(result)));
+                    const listingsJSON = { listings: JSON.parse(JSON.stringify(result)) };
                     response.set('content-type', 'application/json');
-                    response.status(200).send(resultResponse);
+                    response.status(200).send(JSON.stringify(listingsJSON));
                 }
                 dbConnection.end();
             });
