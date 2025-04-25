@@ -34,7 +34,7 @@ const getPreferences = function (request, response, userid, preferenceid) {
                     response.status(503).send(responseMessage);
                 }
                 else { // Successful Query
-                    const preferenceJSON = JSON.parse(JSON.stringify(result))[0];
+                    const preferenceJSON = { 'preference': JSON.parse(JSON.stringify(result))[0][`${preferenceColumn}`] };
                     response.set('content-type', 'application/json');
                     response.status(200).send(JSON.stringify(preferenceJSON));
                 }

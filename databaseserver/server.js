@@ -9,15 +9,15 @@ const initializeServer = function () {
 
     /* UC-03: Search Listings */
     rumyroommateserver.get('/listings/search', function (request, response) {
-        const userid = request.query.userid;
-        const preferenceid = request.query.preferenceid;
+        const userid = parseInt(request.query.userid);
+        const preferenceid = parseInt(request.query.preferenceid);
         mainpage.searchListings(request, response, userid, preferenceid);
     });
 
     /* OP-03: Get Preferences */
     rumyroommateserver.get('/preferences', function (request, response) {
-        const userid = request.query.userid;
-        const preferenceid = request.query.preferenceid;
+        const userid = parseInt(request.query.userid);
+        const preferenceid = parseInt(request.query.preferenceid);
         mainpage.getPreferences(request, response, userid, preferenceid);
     });
 

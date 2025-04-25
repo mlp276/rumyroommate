@@ -1,66 +1,61 @@
-const { initiateDBConnection, queryError } = require('../databaseserver/connect_db.js');
 const { host, port } = require('../databaseserver/serverSpecs.js');
-const { useraccounts, userpreferences, createdroommatelistings, savedroommatelistings, matchingnotifications } = require('../databasespecs/sqlDatabaseSpecs.js');
-const { getPreferenceColumn } = require('./getPreferenceID.js');
 
-/* UC-03 */
-/* Query 1: Gets the input `userid`'s preference value, `user_preference_value` */
-/* Query 2: Gets listings with the input `preferenceid` set from `preferenceids`
-    This will be done by 
-        1) Get the `userid` and `preferenceids` from all of the listings from the created listings
-        2) Check if `preferenceid` is within each listing's `preferenceids`
-        3) Count the listings that has the comparison successful, and return the array
-    */
-/* Query 3: From the array of listings from Query 2, use each of their `userid` to get from
-    their preferences with the input `preferenceid` to get a list of `listing_preference_value`s */
-/* Count the listings of `listing_preference_value` with the same as `user_preference_value` */
-/* Return JSON of listings that hold these comparisons. */
-
-const searchListings = async function (request, response, input_userid, input_preferenceid) {
-    if (input_userid === undefined || input_preferenceid === undefined) {
+const searchListings = async function (request, response, userid, preferenceid) {
+    if (userid === undefined || preferenceid === undefined) {
         response.status(500).send('Bad Query');
         return;
     }
-    
-    /*  */
-    let input_preferenceValue;
-    const input_preferenceColumn = getPreferenceColumn(input_preferenceid);
-    try {
-        const responseResult = await fetch(`http://${host}:${port}/preferences?userid=${input_userid}&preferenceid=${input_preferenceid}`);
-        if (!responseResult.ok) {
-            response.status(500).send('/preferences error');
-        }
 
-        const responseJSON = await responseResult.json();
-        input_preferenceValue = responseJSON[input_preferenceColumn];
-    }
-    catch {
-        response.status(500).send('Server Error: fetch error');
+    let response_getPreferences;
+    let response_getListings;
+    let responseJSON;
+
+    response_getPreferences = await fetch(`http://${host}:${port}/preferences?userid=${userid}&preferenceid=${preferenceid}`);
+    if (!response_getPreferences.ok) {
+        response.status(500).send('./listings/search error: Unable to get the user\'s preferences');
         return;
     }
+    responseJSON = await response_getPreferences.json();
+    const preferenceValue = responseJSON.preference;
 
-    /* Retrieves */
-    let allListings;
-    try {
-        const responseResult = await fetch(`http://${host}:${port}/listings`);
-        if (!responseResult.ok) {
-            response.status(500).send('/listings error');
+    response_getListings = await fetch(`http://${host}:${port}/listings`);
+    if (!response_getListings.ok) {
+        response.status(500).send('./listings/search error: Unable to get listings');
+        return;
+    }
+    responseJSON = await response_getListings.json();
+
+    let considered_listings = [];
+    for (const listing of responseJSON.listings) {
+        listing_userid = parseInt(listing.userid);
+        listing_preferenceids = listing.preferenceids.split(',');
+        if (listing_userid !== userid && listing_preferenceids.find((listing_preferenceid) => parseInt(listing_preferenceid) === preferenceid) !== undefined) {
+            considered_listings.push(listing);
         }
-
-        const responseJSON = await responseResult.json();
-        allListings = responseJSON;
-        response.status(200).send('Retrieved Listings.');
-    }
-    catch {
-        response.status(500).send('Server Error: fetch error');
-        return
     }
 
-    /* Get listings that match input_preferenceValue */
-    let matchingListings = [];
-    for (const listing of allListings) {
-        const listing_userid = listing.userid;
+    let matched_listings = [];
+    for (const listing of considered_listings) {
+        listing_userid = listing.userid;
+
+        response_getPreferences = await fetch(`http://${host}:${port}/preferences?userid=${listing_userid}&preferenceid=${preferenceid}`);
+        if (!response_getPreferences.ok) {
+            response.status(500).send('./listings/search error: Unable to get the listing\'s preferences');
+            return;
+        }
+        
+        responseJSON = await response_getPreferences.json();
+        listing_preferenceValue = responseJSON.preference;
+
+        if (listing_preferenceValue === null) continue;
+
+        if (listing_preferenceValue.endsWith(preferenceValue)) {
+            matched_listings.push(listing);
+        }
     }
+
+    response.set('content-type', 'application/json');
+    response.status(200).send(JSON.stringify({ matched_listings: matched_listings }));
 };
 
 module.exports = {
