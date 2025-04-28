@@ -29,6 +29,7 @@
 </p>
 
 <pre id='jsonResult'></pre>
+<p id='demo'></p>
 
 <script>
 async function displayListing(listing) {
@@ -46,20 +47,21 @@ async function displayListings() {
 	const userid = document.getElementById('netid').value;
     const preferenceid = document.getElementById('preferences').value;
 
+    let json;
     try {
-        const json = await searchListings(userid, preferenceid);
+        json = await searchListings(userid, preferenceid);
         document.getElementById('jsonResult').innerHTML = JSON.stringify(json, null, 2);
     }
     catch (error) {
         document.getElementById('jsonResult').innerHTML = error.toString();
     }
 
-    // let text = '<table border=1>'
-    // for (const listing of json.listings) {
-    //  	text += '<tr><td>' + listing.postid + '</td></tr>';
-    // }
-    // text += '</table>';
-    // document.getElementById('demo').innerHTML = text; 
+    let text = '<table border=1>';
+    for (const listing of json.matched_listings) {
+     	text += '<tr><td>' + listing.postid + '</td></tr>';
+    }
+    text += '</table>';
+    document.getElementById('demo').innerHTML = text; 
 }
 
 async function searchListings(userid, preferenceid) {
