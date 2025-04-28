@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>RU My Roommate?</h2>
+<h3>Main Page</h3>
+
+<label for='netid'>Let the userid of this logged account be:</label><br>
+<input type='text' id='netid' name='netid'><br><br>
+
+<button id='listingsButton' onclick='displayListings()'>Get Listings</button><br>
+
+<p>Filter by Preferences:
+<select id="preferences">
+    <option value=0>None</option>
+    <option value=1>Gender</option>
+    <option value=2>Major</option>
+    <option value=3>Preferred Race</option>
+    <option value=4>Preferred Religion</option>
+    <option value=5>Smoking Preferences</option>
+    <option value=6>Drinking Preferences</option>
+    <option value=7>Sleep Habits</option>
+    <option value=15>Preferred Low Temperature</option>
+    <option value=16>Preferred High Temperature</option>
+    <option value=17>Preferred Guest Frequency</option>
+    <option value=18>Cleanliness Level</option>
+    <option value=19>Noise Tolerance Level</option>
+</select>
+</p>
+
+<p id='jsonResult'></p>
+<p id='demo'></p>
+
+<script>
+function displayListings() {
+	const userid = document.getElementById('netid').value;
+    const preferenceid = document.getElementById('preferences').value;
+	getListings(userid, preferenceid);
+
+    // text = '<table border=1>'
+    // for (const listing of listings) {
+    //  	text += '<tr><td>' + listing.postid + '</td></tr>';
+    // }
+    // text += '</table>';
+    // document.getElementById('demo').innerHTML = text; 
+}
+
+async function getListings(userid, preferenceid) {
+	if (userid.length === 0) {
+    	alert('Bad userid');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/listings');
+        if (response.ok) {
+            const json = await response.json();
+            document.getElementById('demo').innerHTML = JSON.stringify(json);
+        }
+        else {
+            console.error('Error: ', response.status);
+            alert('Failure.');
+        }
+    }
+    catch (error) {
+        console.error('Fetch error: ', error);
+        alert('An error occurred.');
+    }
+
+}
+</script>
+
+</body>
+</html>

@@ -1,11 +1,17 @@
 const express = require('express'); // The express module for server set-up
+const cors = require('cors');
 const mainpage = require('../mainpage/mainpageOperations.js'); // Main page operations
-const { host, port } = require('./serverSpecs.js');
+const { host, port, root } = require('../projectspecs/serverSpecs.js');
 
 /* Initializes the RU My Roommate Server at the specified port */
 const initializeServer = function () {
     const rumyroommateserver = express(); // The router for the server
     rumyroommateserver.use(express.json()); // Use JSON files for requests
+    rumyroommateserver.use(cors());
+
+    rumyroommateserver.get('/', function (request, response) {
+        response.sendFile(`${root}/mainpage/mainPage.html`);
+    });
 
     /* UC-03: Search Listings */
     rumyroommateserver.get('/listings/search', function (request, response) {

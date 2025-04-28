@@ -1,6 +1,6 @@
 const { initiateDBConnection, queryError } = require('../databaseserver/connect_db.js');
 const { getPreferenceColumn } = require('./getPreferenceID.js');
-const { host, user, password, database } = require('../databasespecs/sqlDatabaseSecrets.js');
+const { host, user, password, database } = require('../projectspecs/sqlDatabaseSecrets.js');
 const { useraccounts, userpreferences, createdroommatelistings, savedroommatelistings, matchingnotifications } = require('../databasespecs/sqlDatabaseSpecs.js');
 
 const getPreferences = function (request, response, userid, preferenceid) {

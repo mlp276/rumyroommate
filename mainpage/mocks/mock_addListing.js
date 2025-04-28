@@ -1,5 +1,5 @@
 const { initiateDBConnection, queryError } = require('../../databaseserver/connect_db.js');
-const { host, user, password, database } = require('../../databasespecs/sqlDatabaseSecrets.js');
+const { host, user, password, database } = require('../../projectspecs/sqlDatabaseSecrets.js');
 const { useraccounts, userpreferences, createdroommatelistings, savedroommatelistings, matchingnotifications } = require('../../databasespecs/sqlDatabaseSpecs.js');
 
 const mock_addListing = function (request, response) {

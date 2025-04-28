@@ -1,4 +1,4 @@
-const { host, port } = require('../databaseserver/serverSpecs.js');
+const { host, port } = require('../projectspecs/serverSpecs.js');
 
 const searchListings = async function (request, response, userid, preferenceid) {
     if (userid === undefined || preferenceid === undefined) {
