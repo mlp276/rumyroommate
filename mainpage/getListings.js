@@ -2,31 +2,42 @@ const { initiateDBConnection, queryError } = require('../databaseserver/connect_
 const { host, user, password, database } = require('../projectspecs/sqlDatabaseSecrets.js');
 const { useraccounts, userpreferences, createdroommatelistings, savedroommatelistings, matchingnotifications } = require('../databasespecs/sqlDatabaseSpecs.js');
 
-const getListings = function (request, response) {
-    let sqlStatement = '';
+const getListings = function (request, response, userid) {
+    let sqlStatement = `SELECT * FROM ${createdroommatelistings}`
+    if (userid !== undefined) {
+        sqlStatement = sqlStatement.concat(` WHERE userid = ${userid}`);
+    }
     const dbConnection = initiateDBConnection(host, user, password, database);
-    
+
     try {
-        sqlStatement = `SELECT * FROM ${createdroommatelistings}`;
-
+        /* Connect to the database to make queries */
         dbConnection.connect(function (error) {
-            if (error) throw error;
+            if (error) throw error; // Server error
 
+            /* Execute the SQL statement */
             dbConnection.query(sqlStatement, function (error, result) {
-                if (error) { // Unsuccessfuly Queryr
+                if (error) { // Unsuccessfuly Query
                     responseMessage = queryError(error, 'Service Unavailable');
                     response.status(503).send(responseMessage);
                 }
-                else { // Successful Query
-                    const listingsJSON = { listings: JSON.parse(JSON.stringify(result)) };
+                else { // Successful Query                    
+                    const jsonResult = JSON.parse(JSON.stringify(result));
+
+                    /* Determine if the record with userid was found */
+                    if (jsonResult.length === 0) {
+                        response.status(500).send('Listings of user not found.');
+                        return;
+                    }
+
                     response.set('content-type', 'application/json');
-                    response.status(200).send(JSON.stringify(listingsJSON));
+                    response.status(200).send(JSON.stringify({ listings: jsonResult }));
                 }
                 dbConnection.end();
             });
         });
     }
-    catch (exception) {
+    catch (error) { // Server errors
+        console.error('Error: ' + error);
         response.status(500).send('Server Error');
     }
 };

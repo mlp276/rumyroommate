@@ -28,43 +28,53 @@
 </select>
 </p>
 
-<p id='jsonResult'></p>
-<p id='demo'></p>
+<pre id='jsonResult'></pre>
 
 <script>
-function displayListings() {
+async function displayListing(listing) {
+    let text = '<p>';
+    
+    const userid = listing.userid;
+    const preferenceids = listing.preferenceid.split(',');
+    const address = listing.address;
+
+    text += '</p>'
+    return text;
+}
+
+async function displayListings() {
 	const userid = document.getElementById('netid').value;
     const preferenceid = document.getElementById('preferences').value;
-	getListings(userid, preferenceid);
 
-    // text = '<table border=1>'
-    // for (const listing of listings) {
+    try {
+        const json = await searchListings(userid, preferenceid);
+        document.getElementById('jsonResult').innerHTML = JSON.stringify(json, null, 2);
+    }
+    catch (error) {
+        document.getElementById('jsonResult').innerHTML = error.toString();
+    }
+
+    // let text = '<table border=1>'
+    // for (const listing of json.listings) {
     //  	text += '<tr><td>' + listing.postid + '</td></tr>';
     // }
     // text += '</table>';
     // document.getElementById('demo').innerHTML = text; 
 }
 
-async function getListings(userid, preferenceid) {
+async function searchListings(userid, preferenceid) {
 	if (userid.length === 0) {
-    	alert('Bad userid');
-        return;
+        throw Error('Bad userid');
     }
 
-    try {
-        const response = await fetch('http://localhost:8080/listings');
-        if (response.ok) {
-            const json = await response.json();
-            document.getElementById('demo').innerHTML = JSON.stringify(json);
-        }
-        else {
-            console.error('Error: ', response.status);
-            alert('Failure.');
-        }
+    const response = await fetch(`http://localhost:8080/listings/search?userid=${userid}&preferenceid=${preferenceid}`);
+    if (response.ok) {
+        const json = await response.json();
+        return json;
     }
-    catch (error) {
-        console.error('Fetch error: ', error);
-        alert('An error occurred.');
+    else {
+        const errorText = await response.text();
+        throw Error(`${response.status} ${response.statusText}: ${errorText}`);
     }
 
 }

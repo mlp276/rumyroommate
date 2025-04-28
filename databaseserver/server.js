@@ -1,5 +1,5 @@
 const express = require('express'); // The express module for server set-up
-const cors = require('cors');
+const cors = require('cors'); // The cors module for localhost server access
 const mainpage = require('../mainpage/mainpageOperations.js'); // Main page operations
 const { host, port, root } = require('../projectspecs/serverSpecs.js');
 
@@ -15,21 +15,22 @@ const initializeServer = function () {
 
     /* UC-03: Search Listings */
     rumyroommateserver.get('/listings/search', function (request, response) {
-        const userid = parseInt(request.query.userid);
-        const preferenceid = parseInt(request.query.preferenceid);
+        const userid = request.query.userid;
+        const preferenceid = request.query.preferenceid;
         mainpage.searchListings(request, response, userid, preferenceid);
     });
 
     /* OP-03: Get Preferences */
     rumyroommateserver.get('/preferences', function (request, response) {
-        const userid = parseInt(request.query.userid);
-        const preferenceid = parseInt(request.query.preferenceid);
+        const userid = request.query.userid;
+        const preferenceid = request.query.preferenceid;
         mainpage.getPreferences(request, response, userid, preferenceid);
     });
 
     /* OP-05: Get Listings */
     rumyroommateserver.get('/listings', function (request, response) {
-        mainpage.getListings(request, response);
+        const userid = request.query.userid;
+        mainpage.getListings(request, response, userid);
     });
 
     /* Mock OP-06: Create Listing */

@@ -6,25 +6,55 @@ const searchListings = async function (request, response, userid, preferenceid) 
         return;
     }
 
+    userid = parseInt(userid);
+    preferenceid = parseInt(preferenceid);
     let response_getPreferences;
     let response_getListings;
     let responseJSON;
 
+    /* Get the user's preference, if the userid given exists in the database */
     response_getPreferences = await fetch(`http://${host}:${port}/preferences?userid=${userid}&preferenceid=${preferenceid}`);
     if (!response_getPreferences.ok) {
-        response.status(500).send('./listings/search error: Unable to get the user\'s preferences');
+        const errorText = await response_getPreferences.text();
+        response.status(500).send(errorText);
         return;
     }
     responseJSON = await response_getPreferences.json();
     const preferenceValue = responseJSON.preference;
 
+    /* Request to not filter listings, rather get all available listings that is not own user's */
+    if (preferenceid === 0) {
+        response_getListings = await fetch(`http://${host}:${port}/listings`);
+        if (!response_getListings.ok) {
+            const errorText = await response_getPreferences.text();
+            response.status(500).send(errorText);
+            return;
+        }
+        let json = await response_getListings.json();
+
+        let matched_listings = [];
+        for (const listing of json.listings) {
+            listing_userid = parseInt(listing.userid);
+            if (listing_userid !== userid) {
+                matched_listings.push(listing);
+            }
+        }
+
+        response.set('content-type', 'application/json');
+        response.status(200).send(JSON.stringify({ matched_listings: matched_listings }));
+        return;
+    }
+
+    /* Get all avaialble listings */
     response_getListings = await fetch(`http://${host}:${port}/listings`);
     if (!response_getListings.ok) {
-        response.status(500).send('./listings/search error: Unable to get listings');
+        const errorText = await response_getPreferences.text();
+        response.status(500).send(errorText);
         return;
     }
     responseJSON = await response_getListings.json();
 
+    /* Get only the listings with the set preference ids the same as the requesting preference id */
     let considered_listings = [];
     for (const listing of responseJSON.listings) {
         listing_userid = parseInt(listing.userid);
@@ -34,13 +64,16 @@ const searchListings = async function (request, response, userid, preferenceid) 
         }
     }
 
+    /* Get each listing's preference based on their userid, then include those matching with
+       the requesting user's preference */
     let matched_listings = [];
     for (const listing of considered_listings) {
         listing_userid = listing.userid;
 
         response_getPreferences = await fetch(`http://${host}:${port}/preferences?userid=${listing_userid}&preferenceid=${preferenceid}`);
         if (!response_getPreferences.ok) {
-            response.status(500).send('./listings/search error: Unable to get the listing\'s preferences');
+            const errorText = await response_getPreferences.text();
+            response.status(500).send(errorText);
             return;
         }
         
@@ -54,6 +87,7 @@ const searchListings = async function (request, response, userid, preferenceid) 
         }
     }
 
+    /* Send the matching listings to the requesting user */
     response.set('content-type', 'application/json');
     response.status(200).send(JSON.stringify({ matched_listings: matched_listings }));
 };
