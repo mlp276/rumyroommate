@@ -16,7 +16,7 @@
             <form action="#">
                 <div class="form first">
                     <div class="details personal">
-                        <span class="title">Listing Details</span>
+                        <span class="title">LISTING DETAILS</span>
                         <div class="fields">
                             <div class="input-field">
                                 <label>Listing Title</label>
@@ -58,12 +58,13 @@
                             </div>
 
                             <div class="input-field">
+                                <label>Number of Bathrooms</label>
+                                <input type="number" placeholder="Enter Total Number of bathrooms" min="1" required>
+                            </div>
+
+                            <div class="input-field">
                                 <label>Roommates per room</label>
-                                <select id="roommatesPerRoom" name="roommatesPerRoom" min="1" required>
-                                    <option value="" disabled selected>Select</option>
-                                    <option value="1">1 Person</option>
-                                    <option value="2">2 people</option>
-                                </select>
+                                <input type="number" placeholder="Enter Total Number of Roommates" min="1" required>
                             </div>
 
                             <div class="input-field">
@@ -77,18 +78,55 @@
                             </div>
 
                             <div class="input-field">
-                                <label>Preferred Gender</label>
-                                <select id="preferredGender" name="preferredGender">
-                                    <option value="" disabled selected>Select Preference</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="nopreference">No Preference</option>
-                                </select>
+                                <label>Description</label>
+                                <input type="text" placeholder="Enter Listing Description">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="preferences">
+                        <span class="title">PREFERENCES</span>
+                        <div class="fields">
+                            <div class="input-field">
+                                <label>Gender</label>
+                                <input type="text" placeholder="Enter M/F/no preference" required>
                             </div>
 
                             <div class="input-field">
-                                <label>Description</label>
-                                <input type="text" placeholder="Enter Listing Description">
+                                <label>Sleeping habits</label>
+                                <input type="text" placeholder="Enter Sleeping habits" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Smoking/Drinking Preferences</label>
+                                <input type="text" placeholder="Enter Smoking/Drinking Preferences" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ratingScale">
+                        <span class="title">RATE ON THE SCALE OF 1-5 </span>
+                        <p>1 being the lowest, 5 being the highest</p>
+                        
+                        <div class="fields">
+                            <div class="input-field">
+                                <label>Studying</label>
+                                <input type="number" placeholder="How much time you put into studying" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Guest Frequency</label>
+                                <input type="number" placeholder="How often can guests be expected" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Cleanliness</label>
+                                <input type="number" placeholder="How Clean is your space" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label>Noise Tolerance</label>
+                                <input type="number" placeholder="How loud do you prefer" required>
                             </div>
                         </div>
                         <button type="submit" class="sumbitBtn" id="postBtn">
@@ -96,6 +134,7 @@
                             <i class="uil uil-navigator"></i>
                         </button>
                     </div>
+
                 </div>
             </form>
         </div>
