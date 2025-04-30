@@ -29,6 +29,7 @@ const searchListings = async function (request, response, input_userid, input_pr
         const responseResult = await fetch(`http://${host}:${port}/preferences?userid=${input_userid}&preferenceid=${input_preferenceid}`);
         if (!responseResult.ok) {
             response.status(500).send('/preferences error');
+            return;
         }
 
         const responseJSON = await responseResult.json();
@@ -45,11 +46,13 @@ const searchListings = async function (request, response, input_userid, input_pr
         const responseResult = await fetch(`http://${host}:${port}/listings`);
         if (!responseResult.ok) {
             response.status(500).send('/listings error');
+            return;
         }
 
         const responseJSON = await responseResult.json();
         allListings = responseJSON;
-        response.status(200).send('Retrieved Listings.');
+
+        
     }
     catch {
         response.status(500).send('Server Error: fetch error');
@@ -60,8 +63,38 @@ const searchListings = async function (request, response, input_userid, input_pr
     let matchingListings = [];
     for (const listing of allListings) {
         const listing_userid = listing.userid;
+        const preferenceids = listing.preferenceids
+
+        //Parse Preference ID's; Expected input format: "01,02,03"
+        const prefIDArray = preferenceids.split(',');
+        
+        //If preference id found
+        const formattedPreferences = String(input_preferenceid)
+        if(prefIDArray.includes(formattedPreferences)) {
+            try {
+                const responseResult = await fetch(`http://${host}:${port}/preferences?userid=${listing_userid}&preferenceid=${input_preferenceid}`);
+                if (!responseResult.ok) continue; 
+
+                const responseJSON = await responseResult.json();
+                const listing_preference_value = responseJSON.preference;
+
+                if (listing_preference_value === input_preferenceValue) {
+                    matchingListings.push(listing);
+                }
+            }
+            catch{
+                continue;
+            }
+        }
     }
+
+    response.setHeader('Content-Type', 'application/json');
+    response.status(200).send(JSON.stringify(matchingListings));
+    console.log("Matched Listings: ", matchingListings);
+
 };
+
+
 
 module.exports = {
     searchListings

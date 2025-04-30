@@ -17,7 +17,7 @@ const initializeServer = function () {
         const userid = request.query.userid;
         const preferenceid = request.query.preferenceid;
 
-        if (userid == undefined || preferenceid == NULL) {
+        if (userid == undefined || preferenceid == null) {
             response.status(500).send('Bad Query');
             return;
         }
