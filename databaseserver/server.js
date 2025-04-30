@@ -9,6 +9,7 @@ const initializeServer = function () {
     rumyroommateserver.use(express.json()); // Use JSON files for requests
     rumyroommateserver.use(cors());
 
+    /* Main Web Page Resource */
     rumyroommateserver.get('/', function (request, response) {
         response.sendFile(`${root}/mainpage/mainPage.html`);
     });
@@ -31,6 +32,12 @@ const initializeServer = function () {
     rumyroommateserver.get('/listings', function (request, response) {
         const userid = request.query.userid;
         mainpage.getListings(request, response, userid);
+    });
+
+    /* Mock OP-01: Get Listings */
+    rumyroommateserver.get('/accounts', function (request, response) {
+        const userid = request.query.userid;
+        mainpage.mocks.mock_getAccount(request, response, userid);
     });
 
     /* Mock OP-06: Create Listing */

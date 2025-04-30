@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `matchnotifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `matchnotifications` (
-  `notificationid` int unsigned NOT NULL,
+  `notificationid` int unsigned NOT NULL AUTO_INCREMENT,
   `userid` int unsigned NOT NULL,
   `postid` int unsigned NOT NULL,
   PRIMARY KEY (`notificationid`),
@@ -44,4 +44,4 @@ CREATE TABLE `matchnotifications` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-08 20:44:23
+-- Dump completed on 2025-04-28 16:50:45

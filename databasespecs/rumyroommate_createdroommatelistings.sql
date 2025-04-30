@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `createdroommatelistings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `createdroommatelistings` (
-  `postid` int unsigned NOT NULL,
+  `postid` int unsigned NOT NULL AUTO_INCREMENT,
   `userid` int unsigned NOT NULL,
-  `preferenceids` int NOT NULL,
-  `createtime` date NOT NULL,
+  `preferenceids` varchar(255) NOT NULL,
+  `createtime` datetime NOT NULL,
   `address` varchar(255) NOT NULL,
   `campus` varchar(255) DEFAULT NULL,
   `roomnumber` varchar(255) DEFAULT NULL,
@@ -35,9 +35,9 @@ CREATE TABLE `createdroommatelistings` (
   `numroommates` int unsigned DEFAULT NULL,
   PRIMARY KEY (`postid`),
   UNIQUE KEY `postid_UNIQUE` (`postid`),
-  UNIQUE KEY `userid_UNIQUE` (`userid`),
+  KEY `fk_userid_posts_idx` (`userid`),
   CONSTRAINT `fk_userid_posts` FOREIGN KEY (`userid`) REFERENCES `useraccounts` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +49,4 @@ CREATE TABLE `createdroommatelistings` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-08 20:44:23
+-- Dump completed on 2025-04-28 16:50:45

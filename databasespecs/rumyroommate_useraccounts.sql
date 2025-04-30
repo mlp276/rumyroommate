@@ -32,7 +32,7 @@ CREATE TABLE `useraccounts` (
   UNIQUE KEY `userid_UNIQUE` (`userid`),
   UNIQUE KEY `netid_UNIQUE` (`netid`),
   CONSTRAINT `chk_age` CHECK ((`age` >= 18))
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci KEY_BLOCK_SIZE=1;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci KEY_BLOCK_SIZE=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -44,4 +44,4 @@ CREATE TABLE `useraccounts` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-08 20:44:23
+-- Dump completed on 2025-04-28 16:50:44
