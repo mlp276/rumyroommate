@@ -8,10 +8,12 @@
 <label for='netid'>Let the userid of this logged account be:</label><br>
 <input type='text' id='netid' name='netid'><br><br>
 
-<button id='listingsButton' onclick='displayListings()'>Get Listings</button><br>
+<p id='userpreferences'></p>
+
+<button id='listingsButton' onclick='buttonEvent()'>Get Listings</button><br>
 
 <p>Filter by Preferences:
-<select id="preferences">
+<select id='preferences'>
     <option value=0>None</option>
     <option value=1>Gender</option>
     <option value=2>Major</option>
@@ -28,40 +30,113 @@
 </select>
 </p>
 
+<pre id='jsonError'></pre>
 <pre id='jsonResult'></pre>
 <p id='demo'></p>
 
 <script>
-async function displayListing(listing) {
-    let text = '<p>';
-    
-    const userid = listing.userid;
-    const preferenceids = listing.preferenceid.split(',');
-    const address = listing.address;
-
-    text += '</p>'
-    return text;
+async function buttonEvent() {
+    displayPreferences();
+    displayListings();
 }
 
+async function displayPreferences() {
+	const userid = document.getElementById('netid').value;
+    const preferenceid = document.getElementById('preferences').value;
+
+    let text = `Preferences of ${userid}:<br>`;
+    try {
+        let response, json;
+        for (let preferenceid = 1; preferenceid < preferenceIDs.length; ++preferenceid) {
+            response = await fetch(`http://localhost:8080/preferences?userid=${userid}&preferenceid=${preferenceid}`);
+            if (response.ok) {
+                json = await response.json();
+            }
+            else {
+                const errorText = await response.text();
+                throw Error(`${response.status} ${response.statusText}: ${errorText}`);
+            }
+
+            const preference = json.preference;
+            text += `${getPreferenceColumn(preferenceid)}: ${preference}<br>`;
+        }
+
+        document.getElementById('userpreferences').innerHTML = text;
+    }
+    catch (error) {
+        document.getElementById('jsonError').innerHTML = error.toString();
+        return;
+    }
+}
+    
+/* List of implemented preferences and their associated ids */
+const preferenceIDs = [
+    null,
+    'gender',
+    'major',
+    'prefrace',
+    'prefreligion',
+    'prefsmoking',
+    'prefdrinking',
+    'sleephabits',
+    'sleepstarttime',
+    'sleependtime',
+    'studystarttime',
+    'studyendtime',
+    'sharedstarttime',
+    'sharedendtime',
+    'roombudget',
+    'preflowtemp',
+    'prefhightemp',
+    'prefguestfreq',
+    'cleanliness',
+    'noisetolerance'
+];
+
+const getPreferenceColumn = function (preferenceid) {
+    /* Check that the preference id is within the valid range */
+    if (preferenceid < 0 || preferenceid >= preferenceIDs.length) {
+        throw Error('Preference id Out of Range');
+    }
+
+    return preferenceIDs[preferenceid];
+};
+
 async function displayListings() {
+    document.getElementById('jsonError').innerHTML = '';
+
 	const userid = document.getElementById('netid').value;
     const preferenceid = document.getElementById('preferences').value;
 
     let json;
     try {
         json = await searchListings(userid, preferenceid);
-        document.getElementById('jsonResult').innerHTML = JSON.stringify(json, null, 2);
+        // document.getElementById('jsonResult').innerHTML = JSON.stringify(json, null, 2);
     }
     catch (error) {
-        document.getElementById('jsonResult').innerHTML = error.toString();
+        document.getElementById('jsonError').innerHTML = error.toString();
+        return;
     }
 
-    let text = '<table border=1>';
-    for (const listing of json.matched_listings) {
-     	text += '<tr><td>' + listing.postid + '</td></tr>';
+    /* Neatly display the listings in a table*/
+    try {
+        let text = '<table border=1>';
+
+        let matched_listings = json.matched_listings;
+        if (matched_listings.length === 0) {
+            document.getElementById('demo').innerHTML = 'No matching listings found.';
+            return;
+        }
+
+        for (const listing of json.matched_listings) {
+            text += '<tr><td>' + await listingText(listing) + '</td></tr>';
+        }
+        text += '</table>';
+        document.getElementById('demo').innerHTML = text;
     }
-    text += '</table>';
-    document.getElementById('demo').innerHTML = text; 
+    catch (error) {
+        document.getElementById('jsonError').innerHTML = error.toString();
+    }
 }
 
 async function searchListings(userid, preferenceid) {
@@ -78,7 +153,46 @@ async function searchListings(userid, preferenceid) {
         const errorText = await response.text();
         throw Error(`${response.status} ${response.statusText}: ${errorText}`);
     }
+}
 
+async function listingText(listing) {
+    let text = '<p>';
+    
+    const listing_userid = listing.userid;
+    const listing_preferenceids = listing.preferenceids.split(',');
+    const listing_address = listing.address;
+
+    let response, json;
+
+    let netid;
+    response = await fetch(`http://localhost:8080/accounts?userid=${listing_userid}`);
+    if (response.ok) {
+        json = await response.json();
+        netid = json.account.netid;
+        text += `<b>Netid</b>: ${netid}<br>`;
+    }
+    else {
+        const errorText = await response.text();
+        throw Error(`${response.status} ${response.statusText}: ${errorText}`);
+    }
+
+    text += `<b>Preferences</b>:<br>`;
+    for (const listing_preferenceid of listing_preferenceids) {
+        response = await fetch(`http://localhost:8080/preferences?userid=${listing_userid}&preferenceid=${listing_preferenceid}`);
+        if (response.ok) {
+            json = await response.json();
+            preference = json.preference;
+        }
+        else {
+            const errorText = await response.text();
+            throw Error(`${response.status} ${response.statusText}: ${errorText}`);
+        }
+
+        text += `${getPreferenceColumn(listing_preferenceid)}: ${preference}<br>`;
+    }
+
+    text += `<b>Address</b>: ${listing_address}<br>`;
+    return text;
 }
 </script>
 
