@@ -106,6 +106,7 @@
                     <div class="housing-options-box">
                         <h2 class="text-center mb-0" style="color: var(--rutgers-red); font-weight: 600; font-size: 1.8rem; letter-spacing: 0.5px;">Your Housing Options...</h2>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -424,7 +425,70 @@
             </div>
         </div>
     </div>
-
+    <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Vladyslav Bartkiv</h5>
+                <p class="card-text"><strong>Major:</strong> SOE<br>
+                  <strong>Gender:</strong> Male<br>
+                  <strong>School Year:</strong> Junior<br>
+                  <strong>Cost for a room:</strong> $850<br>
+                  <strong>Location:</strong> College Ave<br>
+                  <strong>Room Type:</strong> Apartment<br>
+                  <strong>Preferred Roommate:</strong> Male<br>
+                  <strong>Race Preference:</strong> Indifferent<br>
+                  <strong>Smoking/Drinking Preference:</strong> Do not prefer<br>
+                  <strong>Sleeping Habits:</strong> Night owl<br><br>
+      
+                  <strong>Sleep Hours:</strong> 1:00 AM – 10:00 AM<br>
+                  <strong>Study Hours:</strong> 8:00 PM – 11:00 PM<br>
+                  <strong>Shared Space Usage:</strong> 11:00 PM – 1:00 AM<br>
+                  <strong>Preferred Temperature:</strong> 72℉<br>
+                  <strong>Guests per Week:</strong> 2<br>
+                  <strong>Number of Roommates:</strong> 3<br>
+                  <strong>Number of Rooms:</strong> 4<br>
+                  <strong>Cleanliness (1–10):</strong> 8<br>
+                  <strong>Noise Tolerance (1–10):</strong> 4
+                </p>
+                <button class="btn btn-primary" onclick="saveListing(1, 100)">Save Listing</button>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Mariana Hernandez</h5>
+                <p class="card-text"><strong>Major:</strong> SOE<br>
+                  <strong>Gender:</strong> Female<br>
+                  <strong>School Year:</strong> Junior<br>
+                  <strong>Cost for a room:</strong> $750<br>
+                  <strong>Location:</strong> Livingston<br>
+                  <strong>Room Type:</strong> Apartment<br>
+                  <strong>Preferred Roommate:</strong> Female<br>
+                  <strong>Race Preference:</strong> Indifferent<br>
+                  <strong>Smoking/Drinking Preference:</strong> Prefer<br>
+                  <strong>Sleeping Habits:</strong> Early sleeper<br><br>
+      
+                  <strong>Sleep Hours:</strong> 11:00 PM – 8:00 AM<br>
+                  <strong>Study Hours:</strong> 4:00 PM – 8:00 PM<br>
+                  <strong>Shared Space Usage:</strong> 9:00 PM – 11:00 PM<br>
+                  <strong>Preferred Temperature:</strong> 70℉<br>
+                  <strong>Guests per Week:</strong> 1<br>
+                  <strong>Number of Roommates:</strong> 1<br>
+                  <strong>Number of Rooms:</strong> 2<br>
+                  <strong>Cleanliness (1–10):</strong> 6<br>
+                  <strong>Noise Tolerance (1–10):</strong> 7
+                </p>
+                <button class="btn btn-primary" onclick="saveListing(1, 101)">Save Listing</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     <!-- Footer -->
     <footer class="footer mt-5 py-3">
         <div class="container">
@@ -548,6 +612,25 @@
                 }
             });
         });
+    </script>
+    <script>
+     function saveListing(userid, listingid) {
+        fetch('/listings/saved/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ userid, listingid })
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message || 'Listing saved!');
+        })
+        .catch(error => {
+          alert('Error saving listing.');
+          console.error('Error:', error);
+        });
+      }
     </script>
 </body>
 </html> 

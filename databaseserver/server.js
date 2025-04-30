@@ -1,6 +1,7 @@
 const express = require('express'); // The express module for server set-up
 const mainpage = require('../mainpage/mainpageOperations.js'); // Main page operations
 const { host, port } = require('./serverSpecs.js');
+const {saveListing} = require('../mainpage/SaveListing.js');
 
 const initializeServer = function () {
     const rumyroommateserver = express(); // The router for the server
@@ -28,6 +29,15 @@ const initializeServer = function () {
     /* OP-05: Get Listings */
     rumyroommateserver.get('/listings', function (request, response) {
         mainpage.getListings(request, response);
+    });
+
+    /* OP-09: Add saved Listing (UC-04) */
+    rumyroommateserver.post('/listings/saved/add', function (request, response) {
+        saveListing (request, response);
+    });
+    
+    rumyroommateserver.get('/saved', function (request, response){
+        response.sendFile('/Users/vladyslavbartkiv/GithubRepo/rumyroommate/public/frontpage.html');
     });
 
     /* Listen to requests at the specified port */
