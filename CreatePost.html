@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="StylePost.css">
+  <title>Create A Listing Post</title>
+</head>
+<body>
+  <div class="container">
+    <header>Create Post</header>
+    <form id="listingForm" action="#">
+      <div class="form first">
+        <div class="details personal">
+          <span class="title">LISTING DETAILS</span>
+          <div class="fields">
+            <div class="input-field">
+              <label>Listing Title</label>
+              <input type="text" id="title" placeholder="Enter Listing Title" required>
+            </div>
+
+            <div class="input-field">
+              <label>Campus</label>
+              <select id="campus" required>
+                <option value="" disabled selected>Select One</option>
+                <option value="busch">Busch Campus</option>
+                <option value="livingston">Livingston Campus</option>
+                <option value="college ave">College Ave Campus</option>
+                <option value="cookdoughlass">Cook/Douglass Campus</option>
+                <option value="offcampus">Off-Campus</option>
+              </select>
+            </div>
+
+            <div class="input-field">
+              <label>House Address</label>
+              <input id="house_address" type="text" placeholder="Enter Address" required>
+            </div>
+
+            <div class="input-field">
+              <label>House Type</label>
+              <select id="house_type" required>
+                <option value="" disabled selected>Select Type</option>
+                <option value="apartment">Apartment</option>
+                <option value="studio">Studio</option>
+                <option value="residence hall">Residence Hall</option>
+                <option value="suite">Suite</option>
+                <option value="house">House</option>
+              </select>
+            </div>
+
+            <div class="input-field">
+              <label>Number of Rooms</label>
+              <input id="num_rooms" type="number" placeholder="Enter Total Number of Rooms" min="1" required>
+            </div>
+
+            <div class="input-field">
+              <label>Number of Bathrooms</label>
+              <input id="num_bath" type="number" placeholder="Enter Total Number of Bathrooms" min="1" required>
+            </div>
+
+            <div class="input-field">
+              <label>Roommates per Room</label>
+              <input id="roommates" type="number" placeholder="Enter Total Number of Roommates" min="1" required>
+            </div>
+
+            <div class="input-field">
+              <label>Rent Amount (per person)</label>
+              <input id="rent" type="number" placeholder="In dollars" min="0" required>
+            </div>
+
+            <div class="input-field">
+              <label>Available From</label>
+              <input id="dt_available" type="date" required>
+            </div>
+
+            <div class="input-field">
+              <label>Description</label>
+              <input id="bio" type="text" placeholder="Enter Listing Description">
+            </div>
+          </div>
+        </div>
+
+        <div class="preferences">
+          <fieldset>
+            <legend>Preferences:</legend>
+            <input type="checkbox" id="female">
+            <label for="female">Female</label>
+
+            <input type="checkbox" id="male">
+            <label for="male">Male</label>
+
+            <input type="checkbox" id="other">
+            <label for="other">Other</label><br>
+
+            <input type="checkbox" id="smoker">
+            <label for="smoker">Smoker</label>
+
+            <input type="checkbox" id="non_smoker">
+            <label for="non_smoker">Non-smoker</label><br>
+
+            <div class="ratings">
+              <label for="clean">Cleanliness (1–10):</label><br>
+              <input type="number" id="clean" name="clean" min="1" max="10"><br>
+            </div>
+          </fieldset><br>
+
+          <button type="submit" class="submitBtn">POST LISTING</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('listingForm');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const listing = {
+        title: document.getElementById('title').value,
+        campus: document.getElementById('campus').value,
+        house_address: document.getElementById('house_address').value,
+        house_type: document.getElementById('house_type').value,
+        num_rooms: parseInt(document.getElementById('num_rooms').value),
+        num_bath: parseInt(document.getElementById('num_bath').value),
+        roommates: parseInt(document.getElementById('roommates').value),
+        rent: parseInt(document.getElementById('rent').value),
+        dt_available: document.getElementById('dt_available').value,
+        bio: document.getElementById('bio').value
+      };
+
+      const preferences = {
+        female: document.getElementById('female').checked,
+        male: document.getElementById('male').checked,
+        other: document.getElementById('other').checked,
+        smoker: document.getElementById('smoker').checked,
+        non_smoker: document.getElementById('non_smoker').checked,
+        clean: parseInt(document.getElementById('clean').value) || null
+      };
+
+      try {
+        const response = await fetch('http://localhost:8080/listings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ listing, preferences })
+        });
+
+        const result = await response.json();
+        alert('Listing created! ID: ' + result[0].post_id);
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('Error submitting listing.');
+      }
+    });
+  </script>
+</body>
+</html>
