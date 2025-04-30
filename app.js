@@ -1,6 +1,8 @@
 import express from 'express'
-const app = express()
+import cors from 'cors'
 
+const app = express()
+app.use(cors())
 app.use(express.json())
 
 import { getListing, getListings, createListing } from './database.js'
@@ -18,9 +20,9 @@ app.get("/listings/:post_id", async (req,res) => {
 } )
 
 app.post("/listings", async(req, res)=>{
-    const{title, bio,num_rooms} = req.body
-    const listing = await createListing(title, bio,num_rooms)
-    res.status(201).send(listing)
+    const{listing, preferences} = req.body
+    const result = await createListing(listing, preferences)
+    res.status(201).send(result)
 })
 
 app.use((err, req, res, next) => {
