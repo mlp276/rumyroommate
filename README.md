@@ -1,1 +1,1 @@
-# rumyroommate
+# RumMyRoommate Account and Profile 
