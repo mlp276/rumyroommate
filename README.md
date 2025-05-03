@@ -1,3 +1,3 @@
 # RUMyRoommate Front Page, Account and Profile 
-# Includes Account/Profile Registratation/Login and Front Page
+# Includes Account/Profile Registratation/Login ---> (my own) Mainpage + Front Page
 
