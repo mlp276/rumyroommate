@@ -2,7 +2,6 @@ const readline = require('readline');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
 
-// Database configuration
 const dbConfig = {
     host: 'localhost',
     user: 'root',
@@ -10,13 +9,11 @@ const dbConfig = {
     database: 'demo'
 };
 
-// Create readline interface
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-// User class to handle user data
 class User {
     constructor(netId, password, preferences = {}) {
         this.netId = netId;
@@ -25,10 +22,8 @@ class User {
     }
 }
 
-// Database connection pool
 let pool;
 
-// Initialize database connection
 async function initializeDB() {
     try {
         pool = await mysql.createPool(dbConfig);
@@ -40,7 +35,6 @@ async function initializeDB() {
     }
 }
 
-// Create necessary tables
 async function createTables() {
     const connection = await pool.getConnection();
     try {
@@ -63,13 +57,10 @@ async function createTables() {
     }
 }
 
-// Validate Rutgers NetID format
 function validateNetId(netId) {
-    const netIdRegex = /^[a-zA-Z0-9._%+-]+@(?:scarletmail\.)?rutgers\.edu$/;
-    return netIdRegex.test(netId);
+    return /^[a-zA-Z0-9._%+-]+$/.test(netId);
 }
 
-// Create new account
 async function createAccount() {
     console.log('\n=== Register New Account ===');
     
@@ -102,10 +93,8 @@ async function createAccount() {
         console.log('\nYour account has been successfully created and verified!');
         console.log(`Welcome, ${username}!`);
         
-        // Ask for additional information
         console.log('\nLet\'s get to know you better:');
         
-        // Gender selection
         console.log('\nSelect your gender:');
         console.log('1. Male');
         console.log('2. Female');
@@ -116,7 +105,6 @@ async function createAccount() {
         const gender = genderChoice === '1' ? 'Male' : 
                       genderChoice === '2' ? 'Female' : 'Other';
 
-        // Race selection
         console.log('\nSelect your race:');
         console.log('1. Asian');
         console.log('2. Black or African American');
@@ -133,7 +121,6 @@ async function createAccount() {
                     raceChoice === '4' ? 'White or Caucasian' :
                     raceChoice === '5' ? 'Multiracial' : 'Other';
 
-        // Year selection
         console.log('\nSelect your year:');
         console.log('1. Freshman');
         console.log('2. Sophomore');
@@ -148,7 +135,6 @@ async function createAccount() {
                     yearChoice === '3' ? 'Junior' :
                     yearChoice === '4' ? 'Senior' : 'Graduate Student';
 
-        // Preferred campus selection
         console.log('\nSelect your preferred campus:');
         console.log('1. Busch');
         console.log('2. College Avenue');
@@ -163,13 +149,11 @@ async function createAccount() {
                                campusChoice === '3' ? 'Cook/Douglass' :
                                campusChoice === '4' ? 'Livingston' : 'Off-campus';
 
-        // Update user profile with new information
         await connection.query(
             'UPDATE users SET gender = ?, race = ?, year = ?, preferred_campus = ? WHERE netId = ?',
             [gender, race, year, preferred_campus, netId]
         );
 
-        // Ask for preferences
         console.log('\nEnter your preferences (e.g., "Clean, Quiet, Night owl"):');
         const preferences = await new Promise(resolve => {
             rl.question('> ', resolve);
@@ -200,7 +184,6 @@ async function createAccount() {
     }
 }
 
-// Show user dashboard
 async function showDashboard(netId, username) {
     console.log('=== Welcome to Your Dashboard ===');
     console.log(`Logged in as: ${username} (${netId})`);
@@ -249,7 +232,6 @@ async function showDashboard(netId, username) {
     }
 }
 
-// Update user profile
 async function updateProfile() {
     console.log('\n=== Update Profile ===');
     
@@ -306,7 +288,6 @@ async function updateProfile() {
     }
 }
 
-// Main menu
 async function showMenu() {
     while (true) {
         console.log('\n=== User Management System ===');
@@ -335,10 +316,9 @@ async function showMenu() {
     }
 }
 
-// Start the application
 async function start() {
     await initializeDB();
     await showMenu();
 }
 
-start().catch(console.error); 
+start().catch(console.error);
