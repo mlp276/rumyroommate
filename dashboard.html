@@ -26,22 +26,44 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link active" href="/login">Login</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item d-flex align-items-center">
-                        <a class="nav-link" href="/profile#profile">Profile</a>
-                        <a href="/profile#profile" class="ms-1">
+                    <li class="nav-item profile-link-container">
+                        <a class="nav-link" href="/profile">
                             <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/dashboard">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                        <div class="profile-dropdown">
+                            <div class="profile-dropdown-header">
+                                <img src="images/default-profile.png" alt="Profile Picture">
+                                <div>
+                                    <h6 id="dropdownName">Login</h6>
+                                    <p id="dropdownNetId">Login</p>
+                                </div>
+                            </div>
+                            <ul class="profile-dropdown-menu">
+                                <li>
+                                    <i class="fas fa-user"></i>
+                                    <a href="/profile">View Profile</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <a href="/messages">Messages</a>
+                                    <span class="badge">3</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-bell"></i>
+                                    <a href="/notifications">Notifications</a>
+                                    <span class="badge">5</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-cog"></i>
+                                    <a href="/settings">Settings</a>
+                                </li>
+                            </ul>
+                            <div class="profile-dropdown-footer">
+                                <a href="/login">Login</a>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -153,4 +175,4 @@
         checkAuth();
     </script>
 </body>
-</html> 
+</html>
