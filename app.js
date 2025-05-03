@@ -1,6 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const path = require('path');
 const os = require('os');
@@ -8,7 +8,6 @@ const os = require('os');
 const app = express();
 const port = 3000;
 
-// Database configuration
 const dbConfig = {
     host: 'localhost',
     user: 'root',
@@ -16,12 +15,10 @@ const dbConfig = {
     database: 'user_management'
 };
 
-// Get local IP address
 function getLocalIP() {
     const interfaces = os.networkInterfaces();
     for (const name of Object.keys(interfaces)) {
         for (const interface of interfaces[name]) {
-            // Skip internal and non-IPv4 addresses
             if (interface.internal || interface.family !== 'IPv4') {
                 continue;
             }
@@ -31,7 +28,6 @@ function getLocalIP() {
     return 'localhost';
 }
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -40,16 +36,14 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: false, // Set to true if using HTTPS
+        secure: false,
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
-// Database connection pool
 let pool;
 
-// Initialize database connection
 async function initializeDB() {
     try {
         pool = await mysql.createPool({
@@ -59,12 +53,10 @@ async function initializeDB() {
             queueLimit: 0
         });
 
-        // Add error handler for the pool
         pool.on('error', (err) => {
             console.error('Unexpected database error:', err);
         });
 
-        // Test the connection
         const connection = await pool.getConnection();
         await connection.ping();
         connection.release();
@@ -73,11 +65,10 @@ async function initializeDB() {
         console.log('Database initialized successfully');
     } catch (error) {
         console.error('Error initializing database:', error);
-        process.exit(1); // Exit if database connection fails
+        process.exit(1);
     }
 }
 
-// Create necessary tables
 async function createTables() {
     const connection = await pool.getConnection();
     try {
@@ -91,6 +82,9 @@ async function createTables() {
                 race VARCHAR(50),
                 year VARCHAR(50),
                 preferred_campus VARCHAR(50),
+                fullname VARCHAR(100),
+                ruid VARCHAR(50),
+                email VARCHAR(100),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
@@ -99,19 +93,28 @@ async function createTables() {
     }
 }
 
-// Validate Rutgers NetID format
-function validateNetId(netId) {
-    const netIdRegex = /^[a-zA-Z0-9._%+-]+@(?:scarletmail\.)?rutgers\.edu$/;
-    return netIdRegex.test(netId);
+async function createLoginLogsTable() {
+    const connection = await pool.getConnection();
+    try {
+        await connection.query(`
+            CREATE TABLE IF NOT EXISTS login_logs (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+        `);
+    } finally {
+        connection.release();
+    }
 }
 
-// Routes
+function validateNetId(netId) {
+    return /^[a-zA-Z0-9._%+-]+$/.test(netId);
+}
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'frontpage.html'));
-});
-
-app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
 app.get('/login', (req, res) => {
@@ -129,48 +132,49 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
-// Serve preferences page
 app.get('/preferences', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'preferences.html'));
 });
 
-// API endpoints
 app.post('/api/register', async (req, res) => {
-    const { username, netId, password, gender, race, year, preferred_campus } = req.body;
+    const { fullname, username, netid, ruid, email, password } = req.body;
 
-    if (!validateNetId(netId)) {
-        return res.status(400).json({ error: 'Invalid NetID format. Please use your Rutgers email (@rutgers.edu or @scarletmail.rutgers.edu)' });
+    if (!validateNetId(netid)) {
+        return res.status(400).json({ error: 'Invalid NetID format.' });
     }
 
-    // Validate password strength
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
         return res.status(400).json({ 
-            error: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)'
+            error: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)' 
         });
     }
 
     try {
         const connection = await pool.getConnection();
+
+        const [existingUsers] = await connection.query(
+            'SELECT * FROM users WHERE username = ? OR netId = ? OR email = ?',
+            [username, netid, email]
+        );
+
+        if (existingUsers.length > 0) {
+            connection.release();
+            return res.status(400).json({ error: 'An account with this username, NetID, or email already exists.' });
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
-        
+
         await connection.query(
-            'INSERT INTO users (username, netId, password, gender, race, year, preferred_campus) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [username, netId, hashedPassword, gender, race, year, preferred_campus]
+            'INSERT INTO users (username, netId, password, gender, race, year, preferred_campus, fullname, ruid, email) VALUES (?, ?, ?, NULL, NULL, NULL, NULL, ?, ?, ?)',
+            [username, netid, hashedPassword, fullname, ruid, email]
         );
         connection.release();
-        res.json({ message: 'Registration successful' });
+
+        res.redirect('/preferences.html');
     } catch (error) {
-        if (error.code === 'ER_DUP_ENTRY') {
-            if (error.message.includes('username')) {
-                res.status(400).json({ error: 'Username already taken' });
-            } else {
-                res.status(400).json({ error: 'NetID already registered' });
-            }
-        } else {
-            console.error('Registration error:', error);
-            res.status(500).json({ error: 'Error during registration' });
-        }
+        console.error('Registration error:', error);
+        res.status(500).json({ error: 'Error during registration' });
     }
 });
 
@@ -183,9 +187,9 @@ app.post('/api/login', async (req, res) => {
             'SELECT * FROM users WHERE username = ?',
             [username]
         );
-        connection.release();
 
         if (users.length === 0) {
+            connection.release();
             return res.status(401).json({ error: 'Invalid username or password.' });
         }
 
@@ -193,8 +197,16 @@ app.post('/api/login', async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
+            connection.release();
             return res.status(401).json({ error: 'Invalid username or password.' });
         }
+
+        await connection.query(
+            'INSERT INTO login_logs (user_id) VALUES (?)',
+            [user.id]
+        );
+
+        connection.release();
 
         req.session.user = {
             id: user.id,
@@ -205,6 +217,7 @@ app.post('/api/login', async (req, res) => {
 
         res.json({ message: 'Login successful!' });
     } catch (error) {
+        console.error('Error during login:', error);
         res.status(500).json({ error: 'Error during login.' });
     }
 });
@@ -243,8 +256,8 @@ app.post('/api/logout', (req, res) => {
     res.json({ message: 'Logged out successfully.' });
 });
 
-// Start the server
-initializeDB().then(() => {
+initializeDB().then(async () => {
+    await createLoginLogsTable();
     const localIP = getLocalIP();
     app.listen(port, '0.0.0.0', () => {
         console.log(`Server running at:`);
@@ -256,4 +269,4 @@ initializeDB().then(() => {
 }).catch(error => {
     console.error('Failed to start server:', error);
     process.exit(1);
-}); 
+});
