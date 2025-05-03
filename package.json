@@ -1,0 +1,23 @@
+{
+  "name": "rutgers-user-management",
+  "version": "1.0.0",
+  "description": "Rutgers User Management System",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "connect-cas": "^1.8.1",
+    "express": "^4.18.2",
+    "express-session": "^1.18.1",
+    "mysql2": "^3.6.5",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
