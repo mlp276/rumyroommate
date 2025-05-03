@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-disclaimer">
+                RU Roommate Finder
+            </div>
+            <a class="navbar-brand mx-auto" href="/">
+                <img src="images/ru-my-roommate-logo.png" alt="RU My Roommate">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item profile-link-container">
+                        <a class="nav-link" href="/profile">
+                            <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                        </a>
+                        <div class="profile-dropdown">
+                            <div class="profile-dropdown-header">
+                                <img src="images/default-profile.png" alt="Profile Picture">
+                                <div>
+                                    <h6 id="dropdownName">Tee Hee</h6>
+                                    <p id="dropdownNetId">Tee Hee</p>
+                                </div>
+                            </div>
+                            <ul class="profile-dropdown-menu">
+                                <li>
+                                    <i class="fas fa-user"></i>
+                                    <a href="/profile">View Profile</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <a href="/messages">Messages</a>
+                                    <span class="badge">3</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-bell"></i>
+                                    <a href="/notifications">Notifications</a>
+                                    <span class="badge">3</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-cog"></i>
+                                    <a href="/settings">Settings</a>
+                                </li>
+                            </ul>
+                            <div class="profile-dropdown-footer">
+                                <a href="/login">Login</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div id="user-info" class="mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Welcome, <span id="username">Jaron Chen</span>!</h2>
+                    <p class="card-text">Email: <span id="email">cheyzejc@gmail.com</span></p>
+                    <h3>Your Preferences</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">Campus: Livingston</li>
+                        <li class="list-group-item">Roommates: 2</li>
+                        <li class="list-group-item">Year: Junior</li>
+                        <li class="list-group-item">Gender: Male</li>
+                        <li class="list-group-item">Ethnicity: Any</li>
+                        <li class="list-group-item">Personal Behaviors: Quiet, Non-smoker</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="notifications" class="mt-4">
+            <h3>Notifications</h3>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">BrandonW matched your preferences!</li>
+                        <li class="list-group-item">New listing available on Livingston campus.</li>
+                        <li class="list-group-item">Your saved listing has been updated.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="listings" class="mt-4">
+            <h3>Available Listings</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Livingston - Livingston Apartments</h5>
+                            <p class="card-text">Issued by: MiguelP</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Busch - Buell Apartments</h5>
+                            <p class="card-text">Issued by: MarianaH</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">College Ave - Sojourner Truth Apartments</h5>
+                            <p class="card-text">Issued by: VladyslavB</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Cook/Douglass - Henderson Apartments</h5>
+                            <p class="card-text">Issued by: KaylaE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="saved-listings" class="mt-4">
+            <h3>Your Saved Listings</h3>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Livingston - Livingston Apartments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="create-listing" class="mt-4">
+            <h3>Create or Edit a Listing</h3>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form id="createListingForm">
+                        <div class="mb-3">
+                            <label for="postTitle" class="form-label">Post Title</label>
+                            <input type="text" id="postTitle" class="form-control" placeholder="Enter post title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" id="address" class="form-control" placeholder="Enter address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campus" class="form-label">Campus</label>
+                            <select id="campus" class="form-select">
+                                <option value="offCampus">Off Campus</option>
+                                <option value="bush">Bush</option>
+                                <option value="college">College</option>
+                                <option value="c/d">C/D</option>
+                                <option value="livi">Livingston</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roomNumber" class="form-label">Room Number</label>
+                            <input type="number" id="roomNumber" class="form-control" placeholder="Enter room number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roommates" class="form-label">Number of Roommates</label>
+                            <input type="number" id="roommates" class="form-control" placeholder="Enter number of roommates" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const notificationBadge = document.querySelector(".profile-dropdown .badge");
+            if (notificationBadge) {
+                notificationBadge.textContent = "3";
+            }
+        });
+    </script>
+</body>
+</html>
