@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Set Your Preferences - RU My Roommate</title>
+    <title>Preferences - Rutgers Roommate Finder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -25,42 +30,48 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/login">Login</a>
+                        <a class="nav-link" href="mainpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listings.html">Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profile</a>
                     </li>
                     <li class="nav-item profile-link-container">
-                        <a class="nav-link" href="/profile">
+                        <a class="nav-link" href="profile.html">
                             <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
                         </a>
                         <div class="profile-dropdown">
                             <div class="profile-dropdown-header">
                                 <img src="images/default-profile.png" alt="Profile Picture">
                                 <div>
-                                    <h6 id="dropdownName">Login</h6>
-                                    <p id="dropdownNetId">Login</p>
+                                    <h6 id="dropdownName">Loading...</h6>
+                                    <p id="dropdownNetId">Loading...</p>
                                 </div>
                             </div>
                             <ul class="profile-dropdown-menu">
                                 <li>
                                     <i class="fas fa-user"></i>
-                                    <a href="/profile">View Profile</a>
+                                    <a href="profile.html">View Profile</a>
                                 </li>
                                 <li>
                                     <i class="fas fa-envelope"></i>
-                                    <a href="/messages">Messages</a>
-                                    <span class="badge">3</span>
+                                    <a href="messages.html">Messages</a>
+                                    <span class="badge">0</span>
                                 </li>
                                 <li>
                                     <i class="fas fa-bell"></i>
-                                    <a href="/notifications">Notifications</a>
-                                    <span class="badge">5</span>
+                                    <a href="notifications.html">Notifications</a>
+                                    <span class="badge">0</span>
                                 </li>
                                 <li>
                                     <i class="fas fa-cog"></i>
-                                    <a href="/settings">Settings</a>
+                                    <a href="settings.html">Settings</a>
                                 </li>
                             </ul>
                             <div class="profile-dropdown-footer">
-                                <a href="/login">Login</a>
+                                <a href="#" id="logoutBtn">Logout</a>
                             </div>
                         </div>
                     </li>
@@ -85,6 +96,7 @@
                     </div>
                     <div class="card-body">
                         <form id="preferencesForm">
+                           
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <h5 class="mb-0">Initial Preferences</h5>
@@ -160,6 +172,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        
         const savedProfilePic = localStorage.getItem('userProfilePic');
         if (savedProfilePic) {
             const profilePic = document.querySelector('img[alt="Profile Picture"]');
@@ -168,28 +181,34 @@
             }
         }
 
+        
         document.getElementById('preferencesForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const gender = document.getElementById('gender').value;
-            const ethnicity = document.getElementById('ethnicity').value;
-            const major = document.getElementById('major').value;
-            const year = document.getElementById('year').value;
             const preferred_campus = document.getElementById('preferred_campus').value;
+            const roommates = document.getElementById('roommates').value;
+            const preferred_year = document.getElementById('preferred_year').value;
+            const preferred_gender = document.getElementById('preferred_gender').value;
+            const preferred_ethnicity = document.getElementById('preferred_ethnicity').value;
+            const personal_behaviors = document.getElementById('personal_behaviors').value;
 
+           
             const preferences = {
-                gender,
-                ethnicity,
-                major,
-                year,
-                preferred_campus
+                preferred_campus,
+                roommates,
+                preferred_year,
+                preferred_gender,
+                preferred_ethnicity,
+                personal_behaviors
             };
             localStorage.setItem('userPreferences', JSON.stringify(preferences));
 
+           
             document.getElementById('message').innerHTML = '<div class="alert alert-success">Preferences saved successfully!</div>';
             
+            
             setTimeout(() => {
-                window.location.href = '/profile';
+                window.location.href = '/mainpage.html';
             }, 1500);
         });
     </script>
