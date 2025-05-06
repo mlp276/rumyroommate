@@ -3,13 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - RU My Roommate</title>
+    <title>Profile Management - Rutgers Roommate Finder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .preferences-textarea {
+            font-family: monospace;
+            min-height: 150px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        .navbar {
+            background-color: transparent !important;
+            box-shadow: none;
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #0d6efd !important;
+        }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            color: #495057 !important;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #0d6efd !important;
+            background-color: rgba(13,110,253,0.1);
+            border-radius: 5px;
+        }
+        .nav-link.active {
+            color: #0d6efd !important;
+            background-color: rgba(13,110,253,0.1);
+            border-radius: 5px;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+        .dropdown-header {
+            font-weight: 600;
+            color: #495057;
+        }
+        .btn-outline-light {
+            border-color: #0d6efd;
+            color: #0d6efd;
+            font-weight: 500;
+        }
+        .btn-outline-light:hover {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+        }
+        .text-muted {
+            font-size: 0.875rem;
+        }
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+        .logo-container img {
+            max-width: 200px;
+            height: auto;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .profile-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -26,42 +139,48 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/login">Login</a>
+                        <a class="nav-link" href="mainpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listings.html">Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html">Profile</a>
                     </li>
                     <li class="nav-item profile-link-container">
-                        <a class="nav-link" href="/profile">
+                        <a class="nav-link" href="profile.html">
                             <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
                         </a>
                         <div class="profile-dropdown">
                             <div class="profile-dropdown-header">
                                 <img src="images/default-profile.png" alt="Profile Picture">
                                 <div>
-                                    <h6 id="dropdownName">Login</h6>
-                                    <p id="dropdownNetId">Login</p>
+                                    <h6 id="profileName">Loading...</h6>
+                                    <p id="profileNetId">Loading...</p>
                                 </div>
                             </div>
                             <ul class="profile-dropdown-menu">
                                 <li>
                                     <i class="fas fa-user"></i>
-                                    <a href="/profile">View Profile</a>
+                                    <a href="profile.html">View Profile</a>
                                 </li>
                                 <li>
                                     <i class="fas fa-envelope"></i>
-                                    <a href="/messages">Messages</a>
-                                    <span class="badge">3</span>
+                                    <a href="messages.html">Messages</a>
+                                    <span class="badge">0</span>
                                 </li>
                                 <li>
                                     <i class="fas fa-bell"></i>
-                                    <a href="/notifications">Notifications</a>
-                                    <span class="badge">5</span>
+                                    <a href="notifications.html">Notifications</a>
+                                    <span class="badge">0</span>
                                 </li>
                                 <li>
                                     <i class="fas fa-cog"></i>
-                                    <a href="/settings">Settings</a>
+                                    <a href="settings.html">Settings</a>
                                 </li>
                             </ul>
                             <div class="profile-dropdown-footer">
-                                <a href="/login">Login</a>
+                                <a href="#" id="logoutBtn">Logout</a>
                             </div>
                         </div>
                     </li>
@@ -72,129 +191,238 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-8 offset-md-2 text-center mb-5">
-                <div class="logo-container small">
-                    <img src="images/ru-my-roommate-logo.png" alt="RU My Roommate Logo" class="img-fluid">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card shadow-sm">
-                    <div class="card-header">
-                        <h3 class="text-center mb-0" style="color: var(--rutgers-red); font-weight: 600; font-size: 2rem; letter-spacing: 0.5px;">Profile</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center mb-4">
-                            <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                            <h4 id="profileName">Login Now!</h4>
-                            <p class="text-muted" id="profileNetId">Login to view your profile</p>
+            <div class="col-md-8 offset-md-2">
+                <div class="profile-section">
+                    <h2 class="text-center mb-4" style="color: var(--rutgers-red); font-weight: 700; font-size: 2.1rem; letter-spacing: 1.5px; text-transform: uppercase; background: linear-gradient(45deg, var(--rutgers-red), #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Profile Management</h2>
+                    <form id="profileForm">
+                        <div class="mb-3">
+                            <label for="fullname" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullname" required>
                         </div>
-
-                        <div class="profile-info-container">
-                            <div class="profile-section">
-                                <div class="section-header">
-                                    <i class="bi bi-person-circle"></i>
-                                    <h5>Basic Information</h5>
-                                </div>
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <span class="info-label">Username</span>
-                                        <span class="info-value" id="profileUsername">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">NetID</span>
-                                        <span class="info-value" id="profileNetIdDisplay">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Gender</span>
-                                        <span class="info-value" id="gender">Not specified</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Ethnicity</span>
-                                        <span class="info-value" id="ethnicity">Not specified</span>
-                                    </div>
-                                </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer_not_to_say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="race" class="form-label">Race</label>
+                            <select class="form-select" id="race" required>
+                                <option value="">Select Race</option>
+                                <option value="asian">Asian</option>
+                                <option value="black">Black</option>
+                                <option value="hispanic">Hispanic</option>
+                                <option value="white">White</option>
+                                <option value="other">Other</option>
+                                <option value="prefer_not_to_say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Year</label>
+                            <select class="form-select" id="year" required>
+                                <option value="">Select Year</option>
+                                <option value="freshman">Freshman</option>
+                                <option value="sophomore">Sophomore</option>
+                                <option value="junior">Junior</option>
+                                <option value="senior">Senior</option>
+                                <option value="graduate">Graduate</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="preferred_campus" class="form-label">Preferred Campus</label>
+                            <select class="form-select" id="preferred_campus" required>
+                                <option value="">Select Campus</option>
+                                <option value="busch">Busch</option>
+                                <option value="livingston">Livingston</option>
+                                <option value="college_avenue">College Avenue</option>
+                                <option value="cook_douglass">Cook/Douglass</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="num_roommates" class="form-label">Preferred Number of Roommates</label>
+                            <input type="number" class="form-control" id="num_roommates" placeholder="Enter number of roommates" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Living Preferences</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_quiet" value="quiet">
+                                <label class="form-check-label" for="pref_quiet">Quiet Study Environment</label>
                             </div>
-
-                            <div class="profile-section">
-                                <div class="section-header">
-                                    <i class="bi bi-mortarboard"></i>
-                                    <h5>Academic Information</h5>
-                                </div>
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <span class="info-label">Major</span>
-                                        <span class="info-value" id="major">Not specified</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Year</span>
-                                        <span class="info-value" id="profileYear">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Campus</span>
-                                        <span class="info-value" id="profileCampus">-</span>
-                                    </div>
-                                </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_social" value="social">
+                                <label class="form-check-label" for="pref_social">Social Environment</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_clean" value="clean">
+                                <label class="form-check-label" for="pref_clean">Clean Living Space</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_smoke" value="no_smoking">
+                                <label class="form-check-label" for="pref_smoke">No Smoking</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_pets" value="no_pets">
+                                <label class="form-check-label" for="pref_pets">No Pets</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_guests" value="no_guests">
+                                <label class="form-check-label" for="pref_guests">No Overnight Guests</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_early" value="early_riser">
+                                <label class="form-check-label" for="pref_early">Early Riser</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pref_night" value="night_owl">
+                                <label class="form-check-label" for="pref_night">Night Owl</label>
                             </div>
                         </div>
-
-                        <div class="text-center mt-4">
-                            <a href="/login" class="btn btn-primary">Login</a>
+                        <div class="mb-3">
+                            <label for="personal_behaviors" class="form-label">Personal Behaviors and Additional Preferences</label>
+                            <textarea class="form-control" id="personal_behaviors" rows="3" placeholder="Describe your personal behaviors, study habits, and any other preferences"></textarea>
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label for="study_habits" class="form-label">Study Habits</label>
+                            <textarea class="form-control" id="study_habits" rows="2" placeholder="Describe your study habits and preferences"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="additional_notes" class="form-label">Additional Notes</label>
+                            <textarea class="form-control" id="additional_notes" rows="2" placeholder="Any other important information for potential roommates"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="footer mt-5 py-3">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0">© 2024 RU My Roommate. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0">Questions or Problems? <a href="https://newbrunswick.rutgers.edu/" target="_blank" class="text-decoration-none">Contact Us</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const userData = sessionStorage.getItem('userData');
-        if (userData) {
-            const user = JSON.parse(userData);
-            document.getElementById('profileName').textContent = user.username;
-            document.getElementById('profileNetId').textContent = user.netId;
-            document.getElementById('profileUsername').textContent = user.username;
-            document.getElementById('profileNetIdDisplay').textContent = user.netId;
-            document.getElementById('profileYear').textContent = user.year || '-';
-            document.getElementById('profileCampus').textContent = user.preferred_campus || '-';
+        document.addEventListener('DOMContentLoaded', async () => {
+           
+            const userData = JSON.parse(sessionStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
 
-            const preferences = JSON.parse(localStorage.getItem('userPreferences') || '{}');
-            document.getElementById('gender').textContent = preferences.gender || 'Not specified';
-            document.getElementById('ethnicity').textContent = preferences.ethnicity || 'Not specified';
-            document.getElementById('major').textContent = preferences.major || 'Not specified';
-        }
+           
+            document.getElementById('profileName').textContent = userData.username;
+            document.getElementById('profileNetId').textContent = userData.netId;
 
-        const savedProfilePic = localStorage.getItem('userProfilePic');
-        if (savedProfilePic) {
-            const profilePics = document.querySelectorAll('img[alt="Profile Picture"]');
-            profilePics.forEach(pic => {
-                pic.src = savedProfilePic;
+            
+            try {
+                const response = await fetch('/api/user-data');
+                if (response.ok) {
+                    const profile = await response.json();
+                    document.getElementById('fullname').value = profile.fullname || '';
+                    document.getElementById('gender').value = profile.gender || '';
+                    document.getElementById('race').value = profile.race || '';
+                    document.getElementById('year').value = profile.year || '';
+                    document.getElementById('preferred_campus').value = profile.preferred_campus || '';
+                    document.getElementById('num_roommates').value = profile.num_roommates || '';
+                    
+                    
+                    const preferences = JSON.parse(profile.preferences || '{}');
+                    document.getElementById('pref_quiet').checked = preferences.quiet || false;
+                    document.getElementById('pref_social').checked = preferences.social || false;
+                    document.getElementById('pref_clean').checked = preferences.clean || false;
+                    document.getElementById('pref_smoke').checked = preferences.no_smoking || false;
+                    document.getElementById('pref_pets').checked = preferences.no_pets || false;
+                    document.getElementById('pref_guests').checked = preferences.no_guests || false;
+                    document.getElementById('pref_early').checked = preferences.early_riser || false;
+                    document.getElementById('pref_night').checked = preferences.night_owl || false;
+
+                    
+                    document.getElementById('personal_behaviors').value = profile.personal_behaviors || '';
+                    document.getElementById('study_habits').value = profile.study_habits || '';
+                    document.getElementById('additional_notes').value = profile.additional_notes || '';
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+
+            
+            document.getElementById('profileForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                try {
+                    const profileData = {
+                        fullname: document.getElementById('fullname').value,
+                        gender: document.getElementById('gender').value,
+                        race: document.getElementById('race').value,
+                        year: document.getElementById('year').value,
+                        preferred_campus: document.getElementById('preferred_campus').value,
+                        num_roommates: document.getElementById('num_roommates').value,
+                        preferences: {
+                            quiet: document.getElementById('pref_quiet').checked,
+                            social: document.getElementById('pref_social').checked,
+                            clean: document.getElementById('pref_clean').checked,
+                            no_smoking: document.getElementById('pref_smoke').checked,
+                            no_pets: document.getElementById('pref_pets').checked,
+                            no_guests: document.getElementById('pref_guests').checked,
+                            early_riser: document.getElementById('pref_early').checked,
+                            night_owl: document.getElementById('pref_night').checked
+                        },
+                        personal_behaviors: document.getElementById('personal_behaviors').value,
+                        study_habits: document.getElementById('study_habits').value,
+                        additional_notes: document.getElementById('additional_notes').value
+                    };
+
+                   
+                    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+                    
+                    
+                    const updatedUserData = {
+                        ...userData,
+                        ...profileData
+                    };
+
+                   
+                    sessionStorage.setItem('userData', JSON.stringify(updatedUserData));
+
+                    
+                    const response = await fetch('/api/update-profile', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(profileData)
+                    });
+
+                    if (response.ok) {
+                        // Immediately redirect to mainpage.html
+                        window.location.href = 'mainpage.html';
+                    } else {
+                        const error = await response.json();
+                        alert(error.error || 'Error updating profile');
+                    }
+                } catch (error) {
+                    console.error('Error updating profile:', error);
+                    alert('Error updating profile');
+                }
             });
-        }
 
-        const profileContainer = document.querySelector('.profile-link-container');
-        const profileDropdown = document.querySelector('.profile-dropdown');
-        const dropdownName = document.getElementById('dropdownName');
-        const dropdownNetId = document.getElementById('dropdownNetId');
-
-        if (userData) {
-            dropdownName.textContent = user.username;
-            dropdownNetId.textContent = user.netId;
-        }
+            
+            document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    const response = await fetch('/api/logout', {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        sessionStorage.removeItem('userData');
+                        window.location.href = 'login.html';
+                    }
+                } catch (error) {
+                    console.error('Error logging out:', error);
+                }
+            });
+        });
     </script>
 </body>
 </html>
