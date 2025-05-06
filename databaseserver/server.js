@@ -30,6 +30,11 @@ const initializeServer = function () {
         mainpage.getListings(request, response);
     });
 
+    /* OP-08: Get Saved Listings */
+    rumyroommateserver.get('/listings/saved', function (request, response){
+        mainpage.getSavedListings(request, response);
+    })
+
     /* Listen to requests at the specified port */
     rumyroommateserver.listen(port);
     console.log(`Server started on port ${port}`);
