@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="StylePost.css" />
+    <title>Main Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Available Listings</h1>
+        <fieldset>
+      <div id="main-listings">
+      </div>
+    </fieldset>
+      <form>
+        <button type="createPost"> <a href="CreatePost.html">Create Post</a></button>
+      </form>
+    </div>
+    <script>
+      window.onload = async () => {
+        try {
+          const response = await fetch('http://localhost:8080/listings')
+          const listings = await response.json()
+
+          const container = document.getElementById('main-listings')
+
+          if (listings.length === 0) {
+            container.innerHTML = "<p>There are no listings :( </p>"
+          } else {
+            listings.forEach(listing => {
+              const listingElement = document.createElement('div')
+              listingElement.classList.add('listing')
+
+              listingElement.innerHTML = `
+                <h2>${listing.title}</h2>
+                Campus: ${listing.campus}<br>
+                Address: ${listing.house_address}<br>
+                Available: ${listing.dt_available}<br>
+                Rooms: ${listing.num_rooms}<br>
+                Bathrooms: ${listing.num_bath}<br>
+                Roommates: ${listing.roommates}<br>
+                Rent (per person): $${listing.rent}<br>
+                Description:<br> ${listing.bio || '<3'}<br><br>
+              `
+              container.appendChild(listingElement)
+            })
+          }
+        } catch (err) {
+          console.error(err)
+          alert('Error loading listings')
+        }
+      }
+    </script>
+  </body>
+</html>
+

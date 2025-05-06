@@ -112,7 +112,7 @@ form .fields .input-field{
     outline: none;
     color: #fff;
     border-radius: 5px;
-    margin: 25px 0;
+    margin: 5px 0;
     background-color: #4070f4;
     transition: all 0.3s linear;
     cursor: pointer;
@@ -147,4 +147,8 @@ form button i{
     margin-top: 10px;
     margin-left:5px;
     color:#707070;
+}
+fieldset{
+    text-align: center;
+    
 }

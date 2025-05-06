@@ -3,21 +3,41 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const pool = mysql.createPool({
-    host:process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
 }).promise()
 
-export async function getListings(){
-    const [rows] = await pool.query("SELECT * , p.female, p.male, p.other, p.smoker, p.non_smoker, p.clean FROM Listings l LEFT JOIN Preferences p ON l.post_id = p.post_id")
-    return rows;
+
+export async function loginUser(email, password) {
+  const [rows] = await pool.query('SELECT * FROM Users WHERE email = ? AND password = ?', [email, password])
+  return rows
 }
 
-export async function getListing(post_id){
-    const [rows] = await pool.query(`SELECT l.*, p.female, p.male, p.other, p.smoker, p.non_smoker, p.clean FROM Listings l LEFT JOIN Preferences p ON l.post_id = p.post_id WHERE l.post_id = ?`, [post_id])
-    return rows
+export async function createUser(name, email, password) {
+  const [existingUser] = await pool.query('SELECT * FROM Users WHERE email = ?', [email])
+  if (existingUser.length > 0) {
+    throw new Error('Email is already in use')
+  }
+
+ 
+  const [result] = await pool.query('INSERT INTO Users (name, email, password) VALUES (?, ?, ?)',[name, email, password])
+  return { id: result.insertId, name, email }
 }
+
+
+export async function getListings() {
+  const [rows] = await pool.query('SELECT * , p.female, p.male, p.other, p.smoker, p.non_smoker, p.clean FROM Listings l LEFT JOIN Preferences p ON l.post_id = p.post_id')
+  return rows
+}
+
+
+export async function getListing(post_id) {
+  const [rows] = await pool.query('SELECT l.*, p.female, p.male, p.other, p.smoker, p.non_smoker, p.clean FROM Listings l LEFT JOIN Preferences p ON l.post_id = p.post_id WHERE l.post_id = ?',[post_id])
+  return rows
+}
+
 
 export async function createListing(listing, preferences) {
     const conn = await pool.getConnection()
@@ -68,3 +88,4 @@ export async function createListing(listing, preferences) {
         conn.release()
     }
 }
+
