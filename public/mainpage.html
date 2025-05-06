@@ -37,8 +37,8 @@
                             <div class="profile-dropdown-header">
                                 <img src="images/default-profile.png" alt="Profile Picture">
                                 <div>
-                                    <h6 id="dropdownName">Tee Hee</h6>
-                                    <p id="dropdownNetId">Tee Hee</p>
+                                    <h6 id="dropdownName">Login</h6>
+                                    <p id="dropdownNetId">Login</p>
                                 </div>
                             </div>
                             <ul class="profile-dropdown-menu">
@@ -72,19 +72,101 @@
     </nav>
 
     <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- Add notification card -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-bell me-2"></i>
+                            New Match Found!
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-1">BrandonW (bw445)</h6>
+                                <p class="text-muted mb-0">Busch Campus</p>
+                            </div>
+                        </div>
+                        <p class="mb-3">You have been matched with BrandonW based on your preferences! They are also looking for roommates at Busch Campus.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Just now</small>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-envelope me-1"></i>
+                                Message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="user-info" class="mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">Welcome, <span id="username">User</span>!</h2>
+                            <p class="card-text">NetID: <span id="netId">Not set</span></p>
+                            <h3 class="mt-4">Your Preferences</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item">Campus: <span id="preferredCampus">Not set</span></li>
+                                <li class="list-group-item">Number of Roommates: <span id="roommates">Not set</span></li>
+                                <li class="list-group-item">Preferred Year: <span id="preferredYear">Not set</span></li>
+                                <li class="list-group-item">Preferred Gender: <span id="preferredGender">Not set</span></li>
+                                <li class="list-group-item">Preferred Ethnicity: <span id="preferredEthnicity">Not set</span></li>
+                                <li class="list-group-item">Personal Behaviors: <span id="personalBehaviors">Not set</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="notifications" class="mt-4">
+                    <h3>Notifications</h3>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Welcome to RU My Roommate! Complete your profile to find your perfect match.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="listings" class="mt-4">
+                    <h3>Available Listings</h3>
+                    <div class="row" id="listingsContainer">
+                       
+                    </div>
+                </div>
+
+                <div id="saved-listings" class="mt-4">
+                    <h3>Your Saved Listings</h3>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Livingston - Livingston Apartments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="create-listing" class="mt-4">
+                    <h3>Create or Edit a Listing</h3>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <form id="createListingForm">
+                                <div class="mb-3">
         <div id="user-info" class="mb-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h2 class="card-title">Welcome, <span id="username">Jaron Chen</span>!</h2>
-                    <p class="card-text">Email: <span id="email">cheyzejc@gmail.com</span></p>
-                    <h3>Your Preferences</h3>
+                    <h2 class="card-title">Welcome, <span id="username">User</span>!</h2>
+                    <p class="card-text">NetID: <span id="netId">Not set</span></p>
+                    <h3 class="mt-4">Your Preferences</h3>
                     <ul class="list-group">
-                        <li class="list-group-item">Campus: Livingston</li>
-                        <li class="list-group-item">Roommates: 2</li>
-                        <li class="list-group-item">Year: Junior</li>
-                        <li class="list-group-item">Gender: Male</li>
-                        <li class="list-group-item">Ethnicity: Any</li>
-                        <li class="list-group-item">Personal Behaviors: Quiet, Non-smoker</li>
+                        <li class="list-group-item">Campus: <span id="preferredCampus">Not set</span></li>
+                        <li class="list-group-item">Number of Roommates: <span id="roommates">Not set</span></li>
+                        <li class="list-group-item">Preferred Year: <span id="preferredYear">Not set</span></li>
+                        <li class="list-group-item">Preferred Gender: <span id="preferredGender">Not set</span></li>
+                        <li class="list-group-item">Preferred Ethnicity: <span id="preferredEthnicity">Not set</span></li>
+                        <li class="list-group-item">Personal Behaviors: <span id="personalBehaviors">Not set</span></li>
                     </ul>
                 </div>
             </div>
@@ -95,9 +177,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <ul class="list-group">
-                        <li class="list-group-item">BrandonW matched your preferences!</li>
-                        <li class="list-group-item">New listing available on Livingston campus.</li>
-                        <li class="list-group-item">Your saved listing has been updated.</li>
+                        <li class="list-group-item">Welcome to RU My Roommate! Complete your profile to find your perfect match.</li>
                     </ul>
                 </div>
             </div>
@@ -105,39 +185,8 @@
 
         <div id="listings" class="mt-4">
             <h3>Available Listings</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Livingston - Livingston Apartments</h5>
-                            <p class="card-text">Issued by: MiguelP</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Busch - Buell Apartments</h5>
-                            <p class="card-text">Issued by: MarianaH</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">College Ave - Sojourner Truth Apartments</h5>
-                            <p class="card-text">Issued by: VladyslavB</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Cook/Douglass - Henderson Apartments</h5>
-                            <p class="card-text">Issued by: KaylaE</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="row" id="listingsContainer">
+              
             </div>
         </div>
 
@@ -192,13 +241,164 @@
                 </div>
             </div>
         </div>
+
+        <div id="profile-info" class="mt-4">
+            <h3>Your Profile</h3>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Your Profile</h5>
+                    <div class="mb-3">
+                        <h6>Basic Information</h6>
+                        <p><strong>Name:</strong> <span id="profileName">Loading...</span></p>
+                        <p><strong>NetID:</strong> <span id="profileNetId">Loading...</span></p>
+                        <p><strong>Year:</strong> <span id="profileYear">Loading...</span></p>
+                        <p><strong>Gender:</strong> <span id="profileGender">Loading...</span></p>
+                        <p><strong>Race:</strong> <span id="profileRace">Loading...</span></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Living Preferences</h6>
+                        <p><strong>Preferred Campus:</strong> <span id="profileCampus">Loading...</span></p>
+                        <p><strong>Preferred Number of Roommates:</strong> <span id="profileNumRoommates">Loading...</span></p>
+                        <div class="mb-2">
+                            <strong>Preferences:</strong>
+                            <ul class="list-unstyled" id="profilePreferences">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Personal Information</h6>
+                        <p><strong>Personal Behaviors:</strong></p>
+                        <p id="profileBehaviors" class="text-muted">Loading...</p>
+                        <p><strong>Study Habits:</strong></p>
+                        <p id="profileStudyHabits" class="text-muted">Loading...</p>
+                        <p><strong>Additional Notes:</strong></p>
+                        <p id="profileNotes" class="text-muted">Loading...</p>
+                    </div>
+                    <a href="profile.html" class="btn btn-primary">Edit Profile</a>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const notificationBadge = document.querySelector(".profile-dropdown .badge");
-            if (notificationBadge) {
-                notificationBadge.textContent = "3";
+        
+        function updateUserInfo() {
+            const userData = JSON.parse(sessionStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            
+            document.getElementById('username').textContent = userData.fullname || userData.username || 'User';
+            document.getElementById('netId').textContent = userData.netId || 'Not set';
+            document.getElementById('profileName').textContent = userData.fullname || 'Not set';
+            document.getElementById('profileNetId').textContent = userData.netId || 'Not set';
+            document.getElementById('profileYear').textContent = userData.year || 'Not set';
+            document.getElementById('profileGender').textContent = userData.gender || 'Not set';
+            document.getElementById('profileRace').textContent = userData.race || 'Not set';
+            document.getElementById('profileCampus').textContent = userData.preferred_campus || 'Not set';
+            document.getElementById('profileNumRoommates').textContent = userData.num_roommates || 'Not set';
+
+            // Update preferences in the user info section
+            document.getElementById('preferredCampus').textContent = userData.preferred_campus || 'Not set';
+            document.getElementById('roommates').textContent = userData.num_roommates || 'Not set';
+            document.getElementById('preferredYear').textContent = userData.year || 'Not set';
+            document.getElementById('preferredGender').textContent = userData.gender || 'Not set';
+            document.getElementById('preferredEthnicity').textContent = userData.race || 'Not set';
+            document.getElementById('personalBehaviors').textContent = userData.personal_behaviors || 'Not set';
+
+            
+            const preferencesList = document.getElementById('profilePreferences');
+            preferencesList.innerHTML = '';
+            
+            const preferences = userData.preferences || {};
+            const preferenceLabels = {
+                quiet: 'Quiet Study Environment',
+                social: 'Social Environment',
+                clean: 'Clean Living Space',
+                no_smoking: 'No Smoking',
+                no_pets: 'No Pets',
+                no_guests: 'No Overnight Guests',
+                early_riser: 'Early Riser',
+                night_owl: 'Night Owl'
+            };
+
+            Object.entries(preferences).forEach(([key, value]) => {
+                if (value && preferenceLabels[key]) {
+                    const li = document.createElement('li');
+                    li.textContent = preferenceLabels[key];
+                    preferencesList.appendChild(li);
+                }
+            });
+
+            if (preferencesList.children.length === 0) {
+                preferencesList.innerHTML = '<li class="text-muted">No preferences set</li>';
+            }
+
+            // Update personal information
+            document.getElementById('profileBehaviors').textContent = userData.personal_behaviors || 'Not set';
+            document.getElementById('profileStudyHabits').textContent = userData.study_habits || 'Not set';
+            document.getElementById('profileNotes').textContent = userData.additional_notes || 'Not set';
+
+            // Update profile dropdown
+            const dropdownName = document.getElementById('dropdownName');
+            const dropdownNetId = document.getElementById('dropdownNetId');
+            if (dropdownName) dropdownName.textContent = userData.fullname || userData.username || 'User';
+            if (dropdownNetId) dropdownNetId.textContent = userData.netId || 'Not set';
+        }
+
+        
+        updateUserInfo();
+
+        
+        const preferences = JSON.parse(localStorage.getItem('userPreferences') || '{}');
+        if (preferences) {
+            document.getElementById('preferredCampus').textContent = preferences.preferred_campus || 'Not set';
+            document.getElementById('roommates').textContent = preferences.roommates || 'Not set';
+            document.getElementById('preferredYear').textContent = preferences.preferred_year || 'Not set';
+            document.getElementById('preferredGender').textContent = preferences.preferred_gender || 'Not set';
+            document.getElementById('preferredEthnicity').textContent = preferences.preferred_ethnicity || 'Not set';
+            document.getElementById('personalBehaviors').textContent = preferences.personal_behaviors || 'Not set';
+        }
+
+       
+        function loadListings() {
+            const listings = [
+                { id: 1, campus: "Busch", roommates: 2, preferences: "Quiet, Non-smoker" },
+                { id: 2, campus: "Livingston", roommates: 1, preferences: "Pet-friendly" },
+                { id: 3, campus: "College Ave", roommates: 3, preferences: "Vegetarian" }
+            ];
+
+            const listingsContainer = document.getElementById('listingsContainer');
+            listingsContainer.innerHTML = '';
+            
+            listings.forEach(listing => {
+                const listingCard = document.createElement('div');
+                listingCard.className = 'col-md-4 mb-3';
+                listingCard.innerHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Campus: ${listing.campus}</h5>
+                            <p class="card-text">Roommates: ${listing.roommates}</p>
+                            <p class="card-text">Preferences: ${listing.preferences}</p>
+                            <button class="btn btn-primary">Save Listing</button>
+                        </div>
+                    </div>
+                `;
+                listingsContainer.appendChild(listingCard);
+            });
+        }
+
+        
+        loadListings();
+
+        
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'userData') {
+                updateUserInfo();
             }
         });
     </script>
