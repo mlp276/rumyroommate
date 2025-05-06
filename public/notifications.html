@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Rutgers Roommate Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .notification-card {
+            border: none;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .notification-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .notification-card.unread {
+            background-color: #f8f9fa;
+        }
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        .notification-icon.match {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .notification-icon.message {
+            background-color: #198754;
+            color: white;
+        }
+        .notification-icon.system {
+            background-color: #6c757d;
+            color: white;
+        }
+        .notification-time {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        .mark-all-read {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-disclaimer">
+                RU Roommate Finder
+            </div>
+            <a class="navbar-brand mx-auto" href="/">
+                <img src="images/ru-my-roommate-logo.png" alt="RU My Roommate">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="mainpage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listings.html">Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="notifications.html">Notifications</a>
+                    </li>
+                    <li class="nav-item profile-link-container">
+                        <a class="nav-link" href="profile.html">
+                            <img src="images/default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                        </a>
+                        <div class="profile-dropdown">
+                            <div class="profile-dropdown-header">
+                                <img src="images/default-profile.png" alt="Profile Picture">
+                                <div>
+                                    <h6 id="profileName">Loading...</h6>
+                                    <p id="profileNetId">Loading...</p>
+                                </div>
+                            </div>
+                            <ul class="profile-dropdown-menu">
+                                <li>
+                                    <i class="fas fa-user"></i>
+                                    <a href="profile.html">View Profile</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <a href="messages.html">Messages</a>
+                                    <span class="badge">0</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-bell"></i>
+                                    <a href="notifications.html">Notifications</a>
+                                    <span class="badge" id="notificationCount">0</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-cog"></i>
+                                    <a href="settings.html">Settings</a>
+                                </li>
+                            </ul>
+                            <div class="profile-dropdown-footer">
+                                <a href="#" id="logoutBtn">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Your Notifications</h2>
+        <div id="notificationsContainer">
+            <!-- Notifications will be loaded here -->
+        </div>
+    </div>
+
+    <button class="btn btn-primary mark-all-read" id="markAllReadBtn">
+        Mark All as Read
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if user is logged in
+            const userData = JSON.parse(sessionStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update profile dropdown
+            document.getElementById('profileName').textContent = userData.username;
+            document.getElementById('profileNetId').textContent = userData.netId;
+
+            // Load notifications
+            async function loadNotifications() {
+                try {
+                    const response = await fetch('/api/notifications');
+                    if (response.ok) {
+                        const notifications = await response.json();
+                        const container = document.getElementById('notificationsContainer');
+                        container.innerHTML = '';
+
+                        if (notifications.length === 0) {
+                            container.innerHTML = '<div class="alert alert-info">No new notifications</div>';
+                            return;
+                        }
+
+                        notifications.forEach(notification => {
+                            const card = document.createElement('div');
+                            card.className = `card notification-card ${notification.is_read ? '' : 'unread'}`;
+                            
+                            const iconClass = notification.type === 'match' ? 'match' : 
+                                            notification.type === 'message' ? 'message' : 'system';
+                            
+                            card.innerHTML = `
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="notification-icon ${iconClass}">
+                                            <i class="fas ${notification.type === 'match' ? 'fa-user-friends' : 
+                                                          notification.type === 'message' ? 'fa-envelope' : 'fa-info-circle'}"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <p class="card-text mb-1">${notification.message}</p>
+                                            <small class="notification-time">${new Date(notification.created_at).toLocaleString()}</small>
+                                        </div>
+                                        ${!notification.is_read ? `
+                                            <button class="btn btn-sm btn-outline-primary mark-read" data-id="${notification.id}">
+                                                Mark as Read
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `;
+                            
+                            container.appendChild(card);
+                        });
+
+                        // Update notification count
+                        document.getElementById('notificationCount').textContent = notifications.length;
+                    }
+                } catch (error) {
+                    console.error('Error loading notifications:', error);
+                }
+            }
+
+            // Mark notification as read
+            document.getElementById('notificationsContainer').addEventListener('click', async (e) => {
+                if (e.target.classList.contains('mark-read')) {
+                    const notificationId = e.target.dataset.id;
+                    try {
+                        const response = await fetch(`/api/notifications/${notificationId}/read`, {
+                            method: 'POST'
+                        });
+                        if (response.ok) {
+                            loadNotifications();
+                        }
+                    } catch (error) {
+                        console.error('Error marking notification as read:', error);
+                    }
+                }
+            });
+
+            // Mark all notifications as read
+            document.getElementById('markAllReadBtn').addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/api/notifications/mark-all-read', {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        loadNotifications();
+                    }
+                } catch (error) {
+                    console.error('Error marking all notifications as read:', error);
+                }
+            });
+
+            // Load initial notifications
+            loadNotifications();
+
+            // Set up periodic refresh
+            setInterval(loadNotifications, 30000); // Refresh every 30 seconds
+
+            // Handle logout
+            document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    const response = await fetch('/api/logout', {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        sessionStorage.removeItem('userData');
+                        window.location.href = 'login.html';
+                    }
+                } catch (error) {
+                    console.error('Error logging out:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
