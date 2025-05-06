@@ -1,0 +1,6 @@
+rumyroommate.sql --> creates tables for user, listings, and preferences which are all conected
+.env --> This is my info to acces MySQL
+login.html --> initiate this file to be able to accesss main page and create post
+register.html--> says it on the name 
+main.html--> posts listings made that are in the database (was not able to show preferences on this page from the preferences table)
+createpost.html --> allows you to create a listing and choose preferences 
