@@ -16,22 +16,17 @@ const initializeServer = function () {
 
     /* UC-03: Search Listings */
     rumyroommateserver.get('/listings/search', function (request, response) {
-        const userid = request.query.userid;
-        const preferenceid = request.query.preferenceid;
-        mainpage.searchListings(request, response, userid, preferenceid);
+        mainpage.searchListings(request, response);
     });
 
     /* OP-03: Get Preferences */
     rumyroommateserver.get('/preferences', function (request, response) {
-        const userid = request.query.userid;
-        const preferenceid = request.query.preferenceid;
-        mainpage.getPreferences(request, response, userid, preferenceid);
+        mainpage.getPreferences(request, response);
     });
 
     /* OP-05: Get Listings */
     rumyroommateserver.get('/listings', function (request, response) {
-        const userid = request.query.userid;
-        mainpage.getListings(request, response, userid);
+        mainpage.getListings(request, response);
     });
 
     /* Mock OP-01: Get Listings */

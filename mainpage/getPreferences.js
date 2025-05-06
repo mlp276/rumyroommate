@@ -35,17 +35,20 @@ const getPreferenceColumn = function (preferenceid) {
     return preferenceIDs[preferenceid];
 };
 
-const getPreferences = function (request, response, userid, preferenceid) {
+const getPreferences = async function (request, response) {
+    let userid = await request.query.userid;
+    let preferenceid = await request.query.preferenceid;
+
     /* Require that both userid and preferenceid be given */
     if (userid === undefined || preferenceid === undefined) {
-        response.status(400).send('Required userid and preferenceid queries not given');
+        response.status(400).send('Required userid or preferenceid queries not given');
         return;
     }
 
     /* Get the preference column associated with preferenceid */
     let preferenceColumn = null;
     try {
-        preferenceColumn = getPreferenceColumn(preferenceid);
+        preferenceColumn = await getPreferenceColumn(parseInt(preferenceid));
     }
     catch (exception) {
         response.status(400).send('Bad preferenceid query');
@@ -72,7 +75,9 @@ const getPreferences = function (request, response, userid, preferenceid) {
 
                     /* Determine if the record with userid was found */
                     if (jsonResult.length === 0) {
-                        throw Error('Preference of user not found.');
+                        response.status(500).send('Preference of user not found.');
+                        dbConnection.end(); // Finished SQL
+                        return;
                     }
 
                     /* Convert the JSON into the return object */
@@ -85,7 +90,7 @@ const getPreferences = function (request, response, userid, preferenceid) {
         });
     }
     catch (error) { // Server Errors
-        response.status(500).send(error.toString());
+        response.status(500).send('Server Error');
     }
 };
 

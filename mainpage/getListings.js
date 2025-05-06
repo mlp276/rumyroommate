@@ -2,8 +2,11 @@ const { initiateDBConnection, queryError } = require('../databaseserver/connect_
 const { host, user, password, database } = require('../projectspecs/sqlDatabaseSecrets.js');
 const { useraccounts, userpreferences, createdroommatelistings, savedroommatelistings, matchingnotifications } = require('../databasespecs/sqlDatabaseSpecs.js');
 
-const getListings = function (request, response, userid) {
-    let sqlStatement = `SELECT * FROM ${createdroommatelistings}`
+const getListings = async function (request, response) {
+    let userid = await request.query.userid;
+
+    let sqlStatement = `SELECT * FROM ${createdroommatelistings}`;
+    /* If userid is not defined, get all listings; otherwise, get listings of the user */
     if (userid !== undefined) {
         sqlStatement = sqlStatement.concat(` WHERE userid = ${userid}`);
     }
@@ -25,7 +28,8 @@ const getListings = function (request, response, userid) {
 
                     /* Determine if the record with userid was found */
                     if (jsonResult.length === 0) {
-                        response.status(500).send('Listings of user not found.');
+                        response.status(404).send('Listings of user not found.');
+                        dbConnection.end();
                         return;
                     }
 
@@ -37,7 +41,6 @@ const getListings = function (request, response, userid) {
         });
     }
     catch (error) { // Server errors
-        console.error('Error: ' + error);
         response.status(500).send('Server Error');
     }
 };
