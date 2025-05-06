@@ -139,14 +139,16 @@
       };
 
       try {
+        const user_id = parseInt(localStorage.getItem('user_id'));
         const response = await fetch('http://localhost:8080/listings', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ listing, preferences })
+          body: JSON.stringify({ listing, preferences, user_id })
         });
 
         const result = await response.json();
-        alert('Listing created! ID: ' + result[0].post_id);
+        alert('Listing created!');
+        window.location.href = "main.html";  // Redirect after successful submission
       } catch (error) {
         console.error('Error submitting form:', error);
         alert('Error submitting listing.');
