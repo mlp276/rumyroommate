@@ -1,6 +1,9 @@
 const { host, port } = require('../projectspecs/serverSpecs.js');
 
-const searchListings = async function (request, response, userid, preferenceid) {
+const searchListings = async function (request, response) {
+    let userid = await request.query.userid;
+    let preferenceid = await request.query.preferenceid;
+
     if (userid === undefined || preferenceid === undefined) {
         response.status(500).send('Bad Query');
         return;
@@ -81,8 +84,9 @@ const searchListings = async function (request, response, userid, preferenceid) 
         listing_preferenceValue = responseJSON.preference;
 
         if (listing_preferenceValue === null) continue;
+        console.log(listing_preferenceValue);
 
-        if (listing_preferenceValue.endsWith(preferenceValue)) {
+        if (`${listing_preferenceValue}`.endsWith(preferenceValue)) {
             matched_listings.push(listing);
         }
     }
