@@ -2,7 +2,7 @@
 const { getListings } = require('./getListings.js');
 const { getPreferences } = require('./getPreferences.js');
 const { searchListings } = require('./searchListings.js');
-
+const { getSavedListings } = require('./getSavedListings.js');
 /* UC-03 */
 /* Query 1: Gets the input `userid`'s preference value, `user_preference_value` */
 /* Query 2: Gets listings with the input `preferenceid` set from `preferenceids`
@@ -19,5 +19,6 @@ const { searchListings } = require('./searchListings.js');
 module.exports = {
     getListings,
     getPreferences,
-    searchListings
+    searchListings,
+    getSavedListings
 };

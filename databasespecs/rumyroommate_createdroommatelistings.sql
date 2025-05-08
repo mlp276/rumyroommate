@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `createdroommatelistings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `createdroommatelistings` (
-  `postid` int unsigned NOT NULL,
+  `postid` int unsigned NOT NULL AUTO_INCREMENT,
   `userid` int unsigned NOT NULL,
   `preferenceids` int NOT NULL,
   `createtime` date NOT NULL,
@@ -34,8 +34,6 @@ CREATE TABLE `createdroommatelistings` (
   `numrooms` int unsigned DEFAULT NULL,
   `numroommates` int unsigned DEFAULT NULL,
   PRIMARY KEY (`postid`),
-  UNIQUE KEY `postid_UNIQUE` (`postid`),
-  UNIQUE KEY `userid_UNIQUE` (`userid`),
   CONSTRAINT `fk_userid_posts` FOREIGN KEY (`userid`) REFERENCES `useraccounts` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

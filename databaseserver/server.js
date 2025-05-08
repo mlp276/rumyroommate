@@ -18,7 +18,7 @@ const initializeServer = function () {
         const userid = request.query.userid;
         const preferenceid = request.query.preferenceid;
 
-        if (userid == undefined || preferenceid == NULL) {
+        if (userid == undefined || preferenceid == null) {
             response.status(500).send('Bad Query');
             return;
         }
@@ -31,6 +31,12 @@ const initializeServer = function () {
         mainpage.getListings(request, response);
     });
 
+
+    /* OP-08: Get Saved Listings */
+    rumyroommateserver.get('/listings/saved', function (request, response){
+        mainpage.getSavedListings(request, response);
+    })
+
     /* OP-09: Add saved Listing (UC-04) */
     rumyroommateserver.post('/listings/saved/add', function (request, response) {
         saveListing (request, response);
@@ -39,6 +45,7 @@ const initializeServer = function () {
     rumyroommateserver.get('/saved', function (request, response){
         response.sendFile('/Users/vladyslavbartkiv/GithubRepo/rumyroommate/public/frontpage.html');
     });
+
 
     /* Listen to requests at the specified port */
     rumyroommateserver.listen(port);
