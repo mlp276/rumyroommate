@@ -107,31 +107,31 @@ function validateNetId(netId) {
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'frontpage.html'));
+    res.sendFile(path.join(__dirname,'frontpage.html'));
 });
 
 app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'register.html'));
+    res.sendFile(path.join(__dirname, 'register.html'));
 });
 
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+    res.sendFile(path.join(__dirname,  'login.html'));
 });
 
 app.get('/profile', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'profile.html'));
+    res.sendFile(path.join(__dirname, 'profile.html'));
 });
 
 app.get('/dashboard', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
-    res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+    res.sendFile(path.join(__dirname,  'dashboard.html'));
 });
 
 // Serve preferences page
 app.get('/preferences', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'preferences.html'));
+    res.sendFile(path.join(__dirname,  'preferences.html'));
 });
 
 // API endpoints

@@ -1,7 +1,7 @@
 const saveListing = function (request, response) {
     const requestMessage = {};
     const dBConnection = initiateDBConnection(host, user, password, database);
-    const sqlInsert = 'INSERT INTO savedroommatelistings (userid, postid) VALUES (placeholder, placeholder)';
+    const sqlInsert = 'INSERT INTO savedroommatelistings (userid, postid) VALUES (?, ?)';
 
     let body = '';
 
